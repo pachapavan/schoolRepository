@@ -1,0 +1,24 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "staffSalary": {
+      "home": {
+        "title": "Staff Salaries",
+        "createLabel": "Create a new Staff Salary",
+        "createOrEditLabel": "Create or edit a Staff Salary",
+        "notFound": "No Staff Salaries found"
+      },
+      "created": "A new Staff Salary is created with identifier {{ param }}",
+      "updated": "A Staff Salary is updated with identifier {{ param }}",
+      "deleted": "A Staff Salary is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Staff Salary {{ id }}?"
+      },
+      "detail": {
+        "title": "Staff Salary"
+      },
+      "salaryPaid": "Salary Paid",
+      "month": "Month",
+      "staff": "Staff"
+    }
+  }
+}

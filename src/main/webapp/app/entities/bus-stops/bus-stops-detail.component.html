@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="busStops">
+            <h2><span jhiTranslate="jhipsterSampleApplicationApp.busStops.detail.title">Bus Stops</span> {{ busStops.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.busStops.routeName">Route Name</span></dt>
+                <dd>
+                    <span>{{ busStops.routeName }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.busStops.busStops">Bus Stops</span></dt>
+                <dd>
+                    <span>{{ busStops.busStops }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.busStops.busRoute">Bus Route</span></dt>
+                <dd>
+                    <div *ngIf="busStops.busRoute">
+                        <a [routerLink]="['/bus-route', busStops.busRoute?.id, 'view']">{{ busStops.busRoute?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/bus-stops', busStops.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="jhipsterSampleApplicationApp.studentFee.home.title">Student Fees</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-student-fee" [routerLink]="['/student-fee/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="jhipsterSampleApplicationApp.studentFee.home.createLabel">
+            Create a new Student Fee
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="studentFees?.length === 0">
+        <span jhiTranslate="jhipsterSampleApplicationApp.studentFee.home.notFound">No studentFees found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="studentFees?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.totalAcademicFee">Total Academic Fee</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.academicFeewaveOff">Academic Feewave Off</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.academicFeePaid">Academic Fee Paid</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.totalAcademicFeePaid">Total Academic Fee Paid</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.academicFeepending">Academic Feepending</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.busAlloted">Bus Alloted</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.hostelAlloted">Hostel Alloted</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.totalBusFee">Total Bus Fee</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.busFeewaveOff">Bus Feewave Off</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.busFeePaid">Bus Fee Paid</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.totalBusFeePaid">Total Bus Fee Paid</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.busFeepending">Bus Feepending</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.totalHostelFee">Total Hostel Fee</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.hostelFeewaveOff">Hostel Feewave Off</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.totalHostelFeePaid">Total Hostel Fee Paid</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.hostelFeePaid">Hostel Fee Paid</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.hostelFeepending">Hostel Feepending</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.hostelExpenses">Hostel Expenses</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.year">Year</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.comments">Comments</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.studentFee.student">Student</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let studentFee of studentFees ;trackBy: trackId">
+                    <td><a [routerLink]="['/student-fee', studentFee.id, 'view']">{{ studentFee.id }}</a></td>
+                    <td>{{ studentFee.totalAcademicFee }}</td>
+                    <td>{{ studentFee.academicFeewaveOff }}</td>
+                    <td>{{ studentFee.academicFeePaid }}</td>
+                    <td>{{ studentFee.totalAcademicFeePaid }}</td>
+                    <td>{{ studentFee.academicFeepending }}</td>
+                    <td>{{ studentFee.busAlloted }}</td>
+                    <td>{{ studentFee.hostelAlloted }}</td>
+                    <td>{{ studentFee.totalBusFee }}</td>
+                    <td>{{ studentFee.busFeewaveOff }}</td>
+                    <td>{{ studentFee.busFeePaid }}</td>
+                    <td>{{ studentFee.totalBusFeePaid }}</td>
+                    <td>{{ studentFee.busFeepending }}</td>
+                    <td>{{ studentFee.totalHostelFee }}</td>
+                    <td>{{ studentFee.hostelFeewaveOff }}</td>
+                    <td>{{ studentFee.totalHostelFeePaid }}</td>
+                    <td>{{ studentFee.hostelFeePaid }}</td>
+                    <td>{{ studentFee.hostelFeepending }}</td>
+                    <td>{{ studentFee.hostelExpenses }}</td>
+                    <td>{{ studentFee.year }}</td>
+                    <td>{{ studentFee.comments }}</td>
+                    <td>
+                        <div *ngIf="studentFee.student">
+                            <a [routerLink]="['/student', studentFee.student?.id, 'view']" >{{ studentFee.student?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/student-fee', studentFee.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/student-fee', studentFee.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(studentFee)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

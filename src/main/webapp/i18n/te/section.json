@@ -1,0 +1,24 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "section": {
+      "home": {
+        "title": "Sections",
+        "createLabel": "కొత్త Section  సృష్టించండి",
+        "createOrEditLabel": "Section సృష్టించండి లేదా సవరించండి",
+        "notFound": "No Sections found"
+      },
+      "created": "{{ param }} ఐడీ తో ఒక కొత్త Section సృష్టించబడినది",
+      "updated": "{{ param }} ఐడీ తో ఒక కొత్త Section సవరించబడినది",
+      "deleted": "{{ param }} ఐడీ తో ఒక కొత్త Section తొలగించబడినది",
+      "delete": {
+        "question": "మీరు Section {{ id }} ఖచ్చితంగా తొలగించాలనుకుంటున్నారా?"
+      },
+      "detail": {
+        "title": "Section"
+      },
+      "name": "Name",
+      "sectionNumber": "Section Number",
+      "className": "Class Name"
+    }
+  }
+}

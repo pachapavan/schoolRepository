@@ -1,0 +1,24 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "busStops": {
+      "home": {
+        "title": "Bus Stops",
+        "createLabel": "కొత్త Bus Stops  సృష్టించండి",
+        "createOrEditLabel": "Bus Stops సృష్టించండి లేదా సవరించండి",
+        "notFound": "No Bus Stops found"
+      },
+      "created": "{{ param }} ఐడీ తో ఒక కొత్త Bus Stops సృష్టించబడినది",
+      "updated": "{{ param }} ఐడీ తో ఒక కొత్త Bus Stops సవరించబడినది",
+      "deleted": "{{ param }} ఐడీ తో ఒక కొత్త Bus Stops తొలగించబడినది",
+      "delete": {
+        "question": "మీరు Bus Stops {{ id }} ఖచ్చితంగా తొలగించాలనుకుంటున్నారా?"
+      },
+      "detail": {
+        "title": "Bus Stops"
+      },
+      "routeName": "Route Name",
+      "busStops": "Bus Stops",
+      "busRoute": "Bus Route"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "className": {
+      "home": {
+        "title": "Class Names",
+        "createLabel": "కొత్త Class Name  సృష్టించండి",
+        "createOrEditLabel": "Class Name సృష్టించండి లేదా సవరించండి",
+        "notFound": "No Class Names found"
+      },
+      "created": "{{ param }} ఐడీ తో ఒక కొత్త Class Name సృష్టించబడినది",
+      "updated": "{{ param }} ఐడీ తో ఒక కొత్త Class Name సవరించబడినది",
+      "deleted": "{{ param }} ఐడీ తో ఒక కొత్త Class Name తొలగించబడినది",
+      "delete": {
+        "question": "మీరు Class Name {{ id }} ఖచ్చితంగా తొలగించాలనుకుంటున్నారా?"
+      },
+      "detail": {
+        "title": "Class Name"
+      },
+      "name": "Name",
+      "classNumber": "Class Number",
+      "section": "Section",
+      "student": "Student",
+      "studentMarkes": "Student Markes",
+      "staff": "Staff"
+    }
+  }
+}

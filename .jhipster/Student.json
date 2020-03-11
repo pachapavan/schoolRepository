@@ -1,0 +1,81 @@
+{
+    "name": "Student",
+    "fields": [
+        {
+            "fieldName": "studentId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "studentName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "parentName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "phoneNumber",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "photo",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "comments",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "className",
+            "otherEntityRelationshipName": "student",
+            "relationshipName": "class"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "studentMarkes",
+            "otherEntityRelationshipName": "student",
+            "relationshipName": "markes"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "attendence",
+            "otherEntityRelationshipName": "student",
+            "relationshipName": "attendence"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "studentFee",
+            "otherEntityRelationshipName": "student",
+            "relationshipName": "fee"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "busRoute",
+            "otherEntityRelationshipName": "student",
+            "relationshipName": "busRouteName"
+        }
+    ],
+    "changelogDate": "20200311163200",
+    "entityTableName": "student",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

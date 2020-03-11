@@ -1,0 +1,37 @@
+{
+    "name": "Attendence",
+    "fields": [
+        {
+            "fieldName": "month",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "totalWorkingDays",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "dayspresent",
+            "fieldType": "Long"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "student",
+            "otherEntityRelationshipName": "attendence",
+            "relationshipName": "student",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200311163700",
+    "entityTableName": "attendence",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
