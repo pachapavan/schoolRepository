@@ -1,0 +1,138 @@
+entity Staff {
+	staffId Long
+    staffName String
+    phoneNumber Long
+    address String
+    photo Blob
+    isTeachingStaff Boolean
+    status String
+    salary Long
+}
+
+entity Student {
+    studentId Long
+	studentName String
+    parentName String
+    phoneNumber Long
+    address String
+    photo Blob 
+    status String
+    comments String
+}
+
+entity ClassName {
+	name String
+    classNumber Long
+}
+
+    
+entity Section {
+	name String
+    sectionNumber Long 
+}
+entity Subject  {
+    classname String
+    section String
+	subjectName String
+    subjectCode String
+    subjectTeacher String 
+}
+
+
+entity StudentMarkes  {
+    examName String
+    totalMarkes Long
+    markes Long 
+    comments String
+}
+
+entity Attendence {
+    month LocalDate
+    totalWorkingDays Long
+    dayspresent Long  
+}
+
+
+    
+entity StudentFee {
+    totalAcademicFee Long
+    academicFeewaveOff Long
+    academicFeePaid  Long
+    totalAcademicFeePaid  Long
+    academicFeepending Long
+    busAlloted Boolean
+    hostelAlloted Boolean
+    totalBusFee Long
+    busFeewaveOff Long
+    busFeePaid  Long
+    totalBusFeePaid  Long
+    busFeepending Long
+    totalHostelFee Long
+    hostelFeewaveOff Long
+    totalHostelFeePaid  Long
+    hostelFeePaid  Long
+    hostelFeepending Long
+    hostelExpenses Long
+    year Long
+    comments String
+}
+
+
+entity BusRoute {
+    routeName String
+    routeDriver String
+    busNumber Long
+    year Long
+    status String
+    comments String
+}
+
+entity BusRouteName {
+  routeName String
+}
+entity BusStops {
+  routeName String
+  busStops String
+}
+
+entity StaffSalary {
+  salaryPaid Long
+  month String
+}
+relationship OneToMany {
+	Student{class} to ClassName
+    }
+relationship OneToMany {
+	ClassName{section} to Section
+    }
+relationship OneToMany {
+	Student{markes} to StudentMarkes
+    }
+    
+    relationship OneToMany {
+	StudentMarkes{subject} to Subject
+    }
+       relationship OneToMany {
+	StudentMarkes{class} to ClassName
+    }
+relationship OneToMany {
+	Student{attendence} to Attendence
+    }
+relationship OneToMany {
+	Student{fee} to StudentFee
+    }
+relationship OneToMany {
+	Student{busRouteName} to BusRoute
+    }
+relationship OneToMany {
+	BusRoute{busRoute} to BusRouteName
+    }
+    relationship OneToMany {
+	BusRoute{busStop} to BusStops
+    }
+relationship OneToMany {
+	Staff{salary} to StaffSalary
+    }
+    relationship OneToMany {
+	Staff{teacher} to ClassName
+    }
