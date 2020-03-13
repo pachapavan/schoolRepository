@@ -1,0 +1,27 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "className": {
+      "home": {
+        "title": "Class Names",
+        "createLabel": "Create a new Class Name",
+        "createOrEditLabel": "Create or edit a Class Name",
+        "notFound": "No Class Names found"
+      },
+      "created": "A new Class Name is created with identifier {{ param }}",
+      "updated": "A Class Name is updated with identifier {{ param }}",
+      "deleted": "A Class Name is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Class Name {{ id }}?"
+      },
+      "detail": {
+        "title": "Class Name"
+      },
+      "name": "Name",
+      "classNumber": "Class Number",
+      "section": "Section",
+      "student": "Student",
+      "studentMarkes": "Student Markes",
+      "staff": "Staff"
+    }
+  }
+}

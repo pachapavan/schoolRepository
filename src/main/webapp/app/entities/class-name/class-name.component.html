@@ -1,0 +1,81 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="jhipsterSampleApplicationApp.className.home.title">Class Names</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-class-name" [routerLink]="['/class-name/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="jhipsterSampleApplicationApp.className.home.createLabel">
+            Create a new Class Name
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="classNames?.length === 0">
+        <span jhiTranslate="jhipsterSampleApplicationApp.className.home.notFound">No classNames found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="classNames?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.className.name">Name</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.className.classNumber">Class Number</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.className.student">Student</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.className.studentMarkes">Student Markes</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.className.staff">Staff</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let className of classNames ;trackBy: trackId">
+                    <td><a [routerLink]="['/class-name', className.id, 'view']">{{ className.id }}</a></td>
+                    <td>{{ className.name }}</td>
+                    <td>{{ className.classNumber }}</td>
+                    <td>
+                        <div *ngIf="className.student">
+                            <a [routerLink]="['/student', className.student?.id, 'view']" >{{ className.student?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="className.studentMarkes">
+                            <a [routerLink]="['/student-markes', className.studentMarkes?.id, 'view']" >{{ className.studentMarkes?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="className.staff">
+                            <a [routerLink]="['/staff', className.staff?.id, 'view']" >{{ className.staff?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/class-name', className.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/class-name', className.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(className)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

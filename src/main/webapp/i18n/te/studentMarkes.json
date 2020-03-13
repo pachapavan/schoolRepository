@@ -1,0 +1,28 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "studentMarkes": {
+      "home": {
+        "title": "Student Markes",
+        "createLabel": "కొత్త Student Markes  సృష్టించండి",
+        "createOrEditLabel": "Student Markes సృష్టించండి లేదా సవరించండి",
+        "notFound": "No Student Markes found"
+      },
+      "created": "{{ param }} ఐడీ తో ఒక కొత్త Student Markes సృష్టించబడినది",
+      "updated": "{{ param }} ఐడీ తో ఒక కొత్త Student Markes సవరించబడినది",
+      "deleted": "{{ param }} ఐడీ తో ఒక కొత్త Student Markes తొలగించబడినది",
+      "delete": {
+        "question": "మీరు Student Markes {{ id }} ఖచ్చితంగా తొలగించాలనుకుంటున్నారా?"
+      },
+      "detail": {
+        "title": "Student Markes"
+      },
+      "examName": "Exam Name",
+      "totalMarkes": "Total Markes",
+      "markes": "Markes",
+      "comments": "Comments",
+      "subject": "Subject",
+      "class": "Class",
+      "student": "Student"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "attendence": {
+      "home": {
+        "title": "Attendences",
+        "createLabel": "Create a new Attendence",
+        "createOrEditLabel": "Create or edit a Attendence",
+        "notFound": "No Attendences found"
+      },
+      "created": "A new Attendence is created with identifier {{ param }}",
+      "updated": "A Attendence is updated with identifier {{ param }}",
+      "deleted": "A Attendence is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Attendence {{ id }}?"
+      },
+      "detail": {
+        "title": "Attendence"
+      },
+      "month": "Month",
+      "totalWorkingDays": "Total Working Days",
+      "dayspresent": "Dayspresent",
+      "student": "Student"
+    }
+  }
+}

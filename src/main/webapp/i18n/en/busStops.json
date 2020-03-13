@@ -1,0 +1,24 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "busStops": {
+      "home": {
+        "title": "Bus Stops",
+        "createLabel": "Create a new Bus Stops",
+        "createOrEditLabel": "Create or edit a Bus Stops",
+        "notFound": "No Bus Stops found"
+      },
+      "created": "A new Bus Stops is created with identifier {{ param }}",
+      "updated": "A Bus Stops is updated with identifier {{ param }}",
+      "deleted": "A Bus Stops is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Bus Stops {{ id }}?"
+      },
+      "detail": {
+        "title": "Bus Stops"
+      },
+      "routeName": "Route Name",
+      "busStops": "Bus Stops",
+      "busRoute": "Bus Route"
+    }
+  }
+}

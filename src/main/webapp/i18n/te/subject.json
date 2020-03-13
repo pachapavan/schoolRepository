@@ -1,0 +1,27 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "subject": {
+      "home": {
+        "title": "Subjects",
+        "createLabel": "కొత్త Subject  సృష్టించండి",
+        "createOrEditLabel": "Subject సృష్టించండి లేదా సవరించండి",
+        "notFound": "No Subjects found"
+      },
+      "created": "{{ param }} ఐడీ తో ఒక కొత్త Subject సృష్టించబడినది",
+      "updated": "{{ param }} ఐడీ తో ఒక కొత్త Subject సవరించబడినది",
+      "deleted": "{{ param }} ఐడీ తో ఒక కొత్త Subject తొలగించబడినది",
+      "delete": {
+        "question": "మీరు Subject {{ id }} ఖచ్చితంగా తొలగించాలనుకుంటున్నారా?"
+      },
+      "detail": {
+        "title": "Subject"
+      },
+      "classname": "Classname",
+      "section": "Section",
+      "subjectName": "Subject Name",
+      "subjectCode": "Subject Code",
+      "subjectTeacher": "Subject Teacher",
+      "studentMarkes": "Student Markes"
+    }
+  }
+}

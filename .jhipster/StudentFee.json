@@ -1,0 +1,105 @@
+{
+    "name": "StudentFee",
+    "fields": [
+        {
+            "fieldName": "totalAcademicFee",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "academicFeewaveOff",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "academicFeePaid",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "totalAcademicFeePaid",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "academicFeepending",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "busAlloted",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "hostelAlloted",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "totalBusFee",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "busFeewaveOff",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "busFeePaid",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "totalBusFeePaid",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "busFeepending",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "totalHostelFee",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "hostelFeewaveOff",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "totalHostelFeePaid",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "hostelFeePaid",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "hostelFeepending",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "hostelExpenses",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "year",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "comments",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "student",
+            "otherEntityRelationshipName": "fee",
+            "relationshipName": "student",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200313154100",
+    "entityTableName": "student_fee",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

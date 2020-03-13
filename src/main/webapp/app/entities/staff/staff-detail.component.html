@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="staff">
+            <h2><span jhiTranslate="jhipsterSampleApplicationApp.staff.detail.title">Staff</span> {{ staff.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.staff.staffId">Staff Id</span></dt>
+                <dd>
+                    <span>{{ staff.staffId }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.staff.staffName">Staff Name</span></dt>
+                <dd>
+                    <span>{{ staff.staffName }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.staff.phoneNumber">Phone Number</span></dt>
+                <dd>
+                    <span>{{ staff.phoneNumber }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.staff.address">Address</span></dt>
+                <dd>
+                    <span>{{ staff.address }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.staff.photo">Photo</span></dt>
+                <dd>
+                    <div *ngIf="staff.photo">
+                        <a (click)="openFile(staff?.photoContentType!, staff?.photo)" jhiTranslate="entity.action.open">open</a>
+                        {{ staff.photoContentType }}, {{ byteSize(staff.photo) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.staff.isTeachingStaff">Is Teaching Staff</span></dt>
+                <dd>
+                    <span>{{ staff.isTeachingStaff }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.staff.status">Status</span></dt>
+                <dd>
+                    <span>{{ staff.status }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.staff.salary">Salary</span></dt>
+                <dd>
+                    <span>{{ staff.salary }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/staff', staff.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+{
+    "name": "BusRouteName",
+    "fields": [
+        {
+            "fieldName": "routeName",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "busRoute",
+            "otherEntityRelationshipName": "busRoute",
+            "relationshipName": "busRoute",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200313154300",
+    "entityTableName": "bus_route_name",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

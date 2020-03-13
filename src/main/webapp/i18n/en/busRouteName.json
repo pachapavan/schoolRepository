@@ -1,0 +1,23 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "busRouteName": {
+      "home": {
+        "title": "Bus Route Names",
+        "createLabel": "Create a new Bus Route Name",
+        "createOrEditLabel": "Create or edit a Bus Route Name",
+        "notFound": "No Bus Route Names found"
+      },
+      "created": "A new Bus Route Name is created with identifier {{ param }}",
+      "updated": "A Bus Route Name is updated with identifier {{ param }}",
+      "deleted": "A Bus Route Name is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Bus Route Name {{ id }}?"
+      },
+      "detail": {
+        "title": "Bus Route Name"
+      },
+      "routeName": "Route Name",
+      "busRoute": "Bus Route"
+    }
+  }
+}

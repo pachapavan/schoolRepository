@@ -1,0 +1,42 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "studentFee": {
+      "home": {
+        "title": "Student Fees",
+        "createLabel": "Create a new Student Fee",
+        "createOrEditLabel": "Create or edit a Student Fee",
+        "notFound": "No Student Fees found"
+      },
+      "created": "A new Student Fee is created with identifier {{ param }}",
+      "updated": "A Student Fee is updated with identifier {{ param }}",
+      "deleted": "A Student Fee is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Student Fee {{ id }}?"
+      },
+      "detail": {
+        "title": "Student Fee"
+      },
+      "totalAcademicFee": "Total Academic Fee",
+      "academicFeewaveOff": "Academic Feewave Off",
+      "academicFeePaid": "Academic Fee Paid",
+      "totalAcademicFeePaid": "Total Academic Fee Paid",
+      "academicFeepending": "Academic Feepending",
+      "busAlloted": "Bus Alloted",
+      "hostelAlloted": "Hostel Alloted",
+      "totalBusFee": "Total Bus Fee",
+      "busFeewaveOff": "Bus Feewave Off",
+      "busFeePaid": "Bus Fee Paid",
+      "totalBusFeePaid": "Total Bus Fee Paid",
+      "busFeepending": "Bus Feepending",
+      "totalHostelFee": "Total Hostel Fee",
+      "hostelFeewaveOff": "Hostel Feewave Off",
+      "totalHostelFeePaid": "Total Hostel Fee Paid",
+      "hostelFeePaid": "Hostel Fee Paid",
+      "hostelFeepending": "Hostel Feepending",
+      "hostelExpenses": "Hostel Expenses",
+      "year": "Year",
+      "comments": "Comments",
+      "student": "Student"
+    }
+  }
+}

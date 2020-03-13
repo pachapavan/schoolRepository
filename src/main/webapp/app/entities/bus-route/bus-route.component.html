@@ -1,0 +1,77 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="jhipsterSampleApplicationApp.busRoute.home.title">Bus Routes</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-bus-route" [routerLink]="['/bus-route/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="jhipsterSampleApplicationApp.busRoute.home.createLabel">
+            Create a new Bus Route
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="busRoutes?.length === 0">
+        <span jhiTranslate="jhipsterSampleApplicationApp.busRoute.home.notFound">No busRoutes found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="busRoutes?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.busRoute.routeName">Route Name</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.busRoute.routeDriver">Route Driver</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.busRoute.busNumber">Bus Number</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.busRoute.year">Year</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.busRoute.status">Status</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.busRoute.comments">Comments</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.busRoute.student">Student</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let busRoute of busRoutes ;trackBy: trackId">
+                    <td><a [routerLink]="['/bus-route', busRoute.id, 'view']">{{ busRoute.id }}</a></td>
+                    <td>{{ busRoute.routeName }}</td>
+                    <td>{{ busRoute.routeDriver }}</td>
+                    <td>{{ busRoute.busNumber }}</td>
+                    <td>{{ busRoute.year }}</td>
+                    <td>{{ busRoute.status }}</td>
+                    <td>{{ busRoute.comments }}</td>
+                    <td>
+                        <div *ngIf="busRoute.student">
+                            <a [routerLink]="['/student', busRoute.student?.id, 'view']" >{{ busRoute.student?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/bus-route', busRoute.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/bus-route', busRoute.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(busRoute)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

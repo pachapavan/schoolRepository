@@ -1,0 +1,63 @@
+{
+    "name": "Staff",
+    "fields": [
+        {
+            "fieldName": "staffId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "staffName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "phoneNumber",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "photo",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "isTeachingStaff",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "salary",
+            "fieldType": "Long"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "staffSalary",
+            "otherEntityRelationshipName": "staff",
+            "relationshipName": "salary"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "className",
+            "otherEntityRelationshipName": "staff",
+            "relationshipName": "teacher"
+        }
+    ],
+    "changelogDate": "20200313153400",
+    "entityTableName": "staff",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

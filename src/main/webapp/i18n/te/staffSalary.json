@@ -1,0 +1,24 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "staffSalary": {
+      "home": {
+        "title": "Staff Salaries",
+        "createLabel": "కొత్త Staff Salary  సృష్టించండి",
+        "createOrEditLabel": "Staff Salary సృష్టించండి లేదా సవరించండి",
+        "notFound": "No Staff Salaries found"
+      },
+      "created": "{{ param }} ఐడీ తో ఒక కొత్త Staff Salary సృష్టించబడినది",
+      "updated": "{{ param }} ఐడీ తో ఒక కొత్త Staff Salary సవరించబడినది",
+      "deleted": "{{ param }} ఐడీ తో ఒక కొత్త Staff Salary తొలగించబడినది",
+      "delete": {
+        "question": "మీరు Staff Salary {{ id }} ఖచ్చితంగా తొలగించాలనుకుంటున్నారా?"
+      },
+      "detail": {
+        "title": "Staff Salary"
+      },
+      "salaryPaid": "Salary Paid",
+      "month": "Month",
+      "staff": "Staff"
+    }
+  }
+}
