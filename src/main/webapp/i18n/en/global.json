@@ -7,6 +7,18 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
+        "staff": "Staff",
+        "student": "Student",
+        "className": "Class Name",
+        "section": "Section",
+        "subject": "Subject",
+        "studentMarkes": "Student Markes",
+        "attendence": "Attendence",
+        "studentFee": "Student Fee",
+        "busRoute": "Bus Route",
+        "busRouteName": "Bus Route Name",
+        "busStops": "Bus Stops",
+        "staffSalary": "Staff Salary",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

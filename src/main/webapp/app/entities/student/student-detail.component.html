@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="student">
+            <h2><span jhiTranslate="jhipsterSampleApplicationApp.student.detail.title">Student</span> {{ student.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.student.studentId">Student Id</span></dt>
+                <dd>
+                    <span>{{ student.studentId }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.student.studentName">Student Name</span></dt>
+                <dd>
+                    <span>{{ student.studentName }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.student.parentName">Parent Name</span></dt>
+                <dd>
+                    <span>{{ student.parentName }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.student.phoneNumber">Phone Number</span></dt>
+                <dd>
+                    <span>{{ student.phoneNumber }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.student.address">Address</span></dt>
+                <dd>
+                    <span>{{ student.address }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.student.photo">Photo</span></dt>
+                <dd>
+                    <div *ngIf="student.photo">
+                        <a (click)="openFile(student?.photoContentType!, student?.photo)" jhiTranslate="entity.action.open">open</a>
+                        {{ student.photoContentType }}, {{ byteSize(student.photo) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.student.status">Status</span></dt>
+                <dd>
+                    <span>{{ student.status }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.student.comments">Comments</span></dt>
+                <dd>
+                    <span>{{ student.comments }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/student', student.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+{
+    "name": "Subject",
+    "fields": [
+        {
+            "fieldName": "classname",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "section",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "subjectName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "subjectCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "subjectTeacher",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "studentMarkes",
+            "otherEntityRelationshipName": "subject",
+            "relationshipName": "studentMarkes",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200311163500",
+    "entityTableName": "subject",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

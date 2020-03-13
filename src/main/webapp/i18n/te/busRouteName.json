@@ -1,0 +1,23 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "busRouteName": {
+      "home": {
+        "title": "Bus Route Names",
+        "createLabel": "కొత్త Bus Route Name  సృష్టించండి",
+        "createOrEditLabel": "Bus Route Name సృష్టించండి లేదా సవరించండి",
+        "notFound": "No Bus Route Names found"
+      },
+      "created": "{{ param }} ఐడీ తో ఒక కొత్త Bus Route Name సృష్టించబడినది",
+      "updated": "{{ param }} ఐడీ తో ఒక కొత్త Bus Route Name సవరించబడినది",
+      "deleted": "{{ param }} ఐడీ తో ఒక కొత్త Bus Route Name తొలగించబడినది",
+      "delete": {
+        "question": "మీరు Bus Route Name {{ id }} ఖచ్చితంగా తొలగించాలనుకుంటున్నారా?"
+      },
+      "detail": {
+        "title": "Bus Route Name"
+      },
+      "routeName": "Route Name",
+      "busRoute": "Bus Route"
+    }
+  }
+}

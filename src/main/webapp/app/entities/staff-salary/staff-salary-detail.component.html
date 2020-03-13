@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="staffSalary">
+            <h2><span jhiTranslate="jhipsterSampleApplicationApp.staffSalary.detail.title">Staff Salary</span> {{ staffSalary.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.staffSalary.salaryPaid">Salary Paid</span></dt>
+                <dd>
+                    <span>{{ staffSalary.salaryPaid }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.staffSalary.month">Month</span></dt>
+                <dd>
+                    <span>{{ staffSalary.month }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApplicationApp.staffSalary.staff">Staff</span></dt>
+                <dd>
+                    <div *ngIf="staffSalary.staff">
+                        <a [routerLink]="['/staff', staffSalary.staff?.id, 'view']">{{ staffSalary.staff?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/staff-salary', staffSalary.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
