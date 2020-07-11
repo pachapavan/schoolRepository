@@ -19,7 +19,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20200313154500",
+
     "entityTableName": "staff_salary",
     "dto": "no",
     "pagination": "no",

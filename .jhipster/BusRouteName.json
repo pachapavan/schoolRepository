@@ -15,7 +15,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20200313154300",
+
     "entityTableName": "bus_route_name",
     "dto": "no",
     "pagination": "no",

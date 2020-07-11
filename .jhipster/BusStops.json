@@ -19,7 +19,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20200313154400",
+
     "entityTableName": "bus_stops",
     "dto": "no",
     "pagination": "no",
