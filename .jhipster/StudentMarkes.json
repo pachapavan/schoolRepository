@@ -39,7 +39,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20200311163600",
+
     "entityTableName": "student_markes",
     "dto": "no",
     "pagination": "no",

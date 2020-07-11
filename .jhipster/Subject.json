@@ -31,7 +31,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20200311163500",
+
     "entityTableName": "subject",
     "dto": "no",
     "pagination": "no",

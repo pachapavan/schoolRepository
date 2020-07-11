@@ -39,7 +39,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20200311163300",
+
     "entityTableName": "class_name",
     "dto": "no",
     "pagination": "no",

@@ -49,7 +49,7 @@
             "relationshipName": "teacher"
         }
     ],
-    "changelogDate": "20200311163100",
+
     "entityTableName": "staff",
     "dto": "no",
     "pagination": "no",

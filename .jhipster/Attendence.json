@@ -23,7 +23,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20200311163700",
+
     "entityTableName": "attendence",
     "dto": "no",
     "pagination": "no",

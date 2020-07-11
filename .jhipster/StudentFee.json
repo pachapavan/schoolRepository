@@ -91,7 +91,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20200311163800",
+
     "entityTableName": "student_fee",
     "dto": "no",
     "pagination": "no",

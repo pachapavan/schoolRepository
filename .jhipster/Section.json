@@ -19,7 +19,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20200311163400",
+
     "entityTableName": "section",
     "dto": "no",
     "pagination": "no",
