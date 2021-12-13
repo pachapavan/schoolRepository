@@ -3,6 +3,7 @@
     "attendence": {
       "home": {
         "title": "Attendences",
+        "refreshListLabel": "Refresh list",
         "createLabel": "కొత్త Attendence  సృష్టించండి",
         "createOrEditLabel": "Attendence సృష్టించండి లేదా సవరించండి",
         "notFound": "No Attendences found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Attendence"
       },
+      "id": "ID",
       "month": "Month",
       "totalWorkingDays": "Total Working Days",
       "dayspresent": "Dayspresent",

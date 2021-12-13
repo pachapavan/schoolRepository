@@ -3,6 +3,7 @@
     "className": {
       "home": {
         "title": "Class Names",
+        "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Class Name",
         "createOrEditLabel": "Create or edit a Class Name",
         "notFound": "No Class Names found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Class Name"
       },
+      "id": "ID",
       "name": "Name",
       "classNumber": "Class Number",
       "section": "Section",

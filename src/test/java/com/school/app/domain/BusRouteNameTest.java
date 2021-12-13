@@ -1,13 +1,14 @@
 package com.school.app.domain;
 
-import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
-import com.school.app.web.rest.TestUtil;
 
-public class BusRouteNameTest {
+import com.school.app.web.rest.TestUtil;
+import org.junit.jupiter.api.Test;
+
+class BusRouteNameTest {
 
     @Test
-    public void equalsVerifier() throws Exception {
+    void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(BusRouteName.class);
         BusRouteName busRouteName1 = new BusRouteName();
         busRouteName1.setId(1L);

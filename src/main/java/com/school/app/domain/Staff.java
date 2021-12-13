@@ -1,27 +1,26 @@
 package com.school.app.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Staff.
  */
 @Entity
 @Table(name = "staff")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Staff implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "staff_id")
@@ -53,16 +52,24 @@ public class Staff implements Serializable {
     private Long salary;
 
     @OneToMany(mappedBy = "staff")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "staff" }, allowSetters = true)
     private Set<StaffSalary> salaries = new HashSet<>();
 
     @OneToMany(mappedBy = "staff")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "sections", "student", "studentMarkes", "staff" }, allowSetters = true)
     private Set<ClassName> teachers = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Staff id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
@@ -70,11 +77,11 @@ public class Staff implements Serializable {
     }
 
     public Long getStaffId() {
-        return staffId;
+        return this.staffId;
     }
 
     public Staff staffId(Long staffId) {
-        this.staffId = staffId;
+        this.setStaffId(staffId);
         return this;
     }
 
@@ -83,11 +90,11 @@ public class Staff implements Serializable {
     }
 
     public String getStaffName() {
-        return staffName;
+        return this.staffName;
     }
 
     public Staff staffName(String staffName) {
-        this.staffName = staffName;
+        this.setStaffName(staffName);
         return this;
     }
 
@@ -96,11 +103,11 @@ public class Staff implements Serializable {
     }
 
     public Long getPhoneNumber() {
-        return phoneNumber;
+        return this.phoneNumber;
     }
 
     public Staff phoneNumber(Long phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        this.setPhoneNumber(phoneNumber);
         return this;
     }
 
@@ -109,11 +116,11 @@ public class Staff implements Serializable {
     }
 
     public String getAddress() {
-        return address;
+        return this.address;
     }
 
     public Staff address(String address) {
-        this.address = address;
+        this.setAddress(address);
         return this;
     }
 
@@ -122,11 +129,11 @@ public class Staff implements Serializable {
     }
 
     public byte[] getPhoto() {
-        return photo;
+        return this.photo;
     }
 
     public Staff photo(byte[] photo) {
-        this.photo = photo;
+        this.setPhoto(photo);
         return this;
     }
 
@@ -135,7 +142,7 @@ public class Staff implements Serializable {
     }
 
     public String getPhotoContentType() {
-        return photoContentType;
+        return this.photoContentType;
     }
 
     public Staff photoContentType(String photoContentType) {
@@ -147,12 +154,12 @@ public class Staff implements Serializable {
         this.photoContentType = photoContentType;
     }
 
-    public Boolean isIsTeachingStaff() {
-        return isTeachingStaff;
+    public Boolean getIsTeachingStaff() {
+        return this.isTeachingStaff;
     }
 
     public Staff isTeachingStaff(Boolean isTeachingStaff) {
-        this.isTeachingStaff = isTeachingStaff;
+        this.setIsTeachingStaff(isTeachingStaff);
         return this;
     }
 
@@ -161,11 +168,11 @@ public class Staff implements Serializable {
     }
 
     public String getStatus() {
-        return status;
+        return this.status;
     }
 
     public Staff status(String status) {
-        this.status = status;
+        this.setStatus(status);
         return this;
     }
 
@@ -174,11 +181,11 @@ public class Staff implements Serializable {
     }
 
     public Long getSalary() {
-        return salary;
+        return this.salary;
     }
 
     public Staff salary(Long salary) {
-        this.salary = salary;
+        this.setSalary(salary);
         return this;
     }
 
@@ -187,11 +194,21 @@ public class Staff implements Serializable {
     }
 
     public Set<StaffSalary> getSalaries() {
-        return salaries;
+        return this.salaries;
+    }
+
+    public void setSalaries(Set<StaffSalary> staffSalaries) {
+        if (this.salaries != null) {
+            this.salaries.forEach(i -> i.setStaff(null));
+        }
+        if (staffSalaries != null) {
+            staffSalaries.forEach(i -> i.setStaff(this));
+        }
+        this.salaries = staffSalaries;
     }
 
     public Staff salaries(Set<StaffSalary> staffSalaries) {
-        this.salaries = staffSalaries;
+        this.setSalaries(staffSalaries);
         return this;
     }
 
@@ -207,16 +224,22 @@ public class Staff implements Serializable {
         return this;
     }
 
-    public void setSalaries(Set<StaffSalary> staffSalaries) {
-        this.salaries = staffSalaries;
+    public Set<ClassName> getTeachers() {
+        return this.teachers;
     }
 
-    public Set<ClassName> getTeachers() {
-        return teachers;
+    public void setTeachers(Set<ClassName> classNames) {
+        if (this.teachers != null) {
+            this.teachers.forEach(i -> i.setStaff(null));
+        }
+        if (classNames != null) {
+            classNames.forEach(i -> i.setStaff(this));
+        }
+        this.teachers = classNames;
     }
 
     public Staff teachers(Set<ClassName> classNames) {
-        this.teachers = classNames;
+        this.setTeachers(classNames);
         return this;
     }
 
@@ -232,10 +255,7 @@ public class Staff implements Serializable {
         return this;
     }
 
-    public void setTeachers(Set<ClassName> classNames) {
-        this.teachers = classNames;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -250,9 +270,11 @@ public class Staff implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "Staff{" +
@@ -263,7 +285,7 @@ public class Staff implements Serializable {
             ", address='" + getAddress() + "'" +
             ", photo='" + getPhoto() + "'" +
             ", photoContentType='" + getPhotoContentType() + "'" +
-            ", isTeachingStaff='" + isIsTeachingStaff() + "'" +
+            ", isTeachingStaff='" + getIsTeachingStaff() + "'" +
             ", status='" + getStatus() + "'" +
             ", salary=" + getSalary() +
             "}";

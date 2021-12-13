@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity FlexBox.
+    -->
+    <changeSet id="20211213093915-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="spacing_id"
+                                 baseTableName="flex_box"
+                                 constraintName="fk_flex_box__spacing_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="spacing"/>
+
+        <addForeignKeyConstraint baseColumnNames="attributes_id"
+                                 baseTableName="flex_box"
+                                 constraintName="fk_flex_box__attributes_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="attributes"/>
+
+        <addForeignKeyConstraint baseColumnNames="page_id"
+                                 baseTableName="flex_box"
+                                 constraintName="fk_flex_box__page_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="page"/>
+    </changeSet>
+</databaseChangeLog>

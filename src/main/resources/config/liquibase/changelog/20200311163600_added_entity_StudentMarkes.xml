@@ -3,17 +3,15 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-
-        <property name="autoIncrement" value="true"/>
 
     <!--
         Added the entity StudentMarkes.
     -->
     <changeSet id="20200311163600-1" author="jhipster">
         <createTable tableName="student_markes">
-            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="exam_name" type="varchar(255)">
@@ -31,14 +29,11 @@
             <column name="student_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
 
-    <changeSet id="20200311163600-1-relations" author="jhipster">
-
-    </changeSet>
-    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
     <!--
         Load sample data generated with Faker.js
@@ -52,14 +47,14 @@
         <loadData
                   file="config/liquibase/fake-data/student_markes.csv"
                   separator=";"
-                  tableName="student_markes">
+                  tableName="student_markes"
+                  usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="exam_name" type="string"/>
             <column name="total_markes" type="numeric"/>
             <column name="markes" type="numeric"/>
             <column name="comments" type="string"/>
-            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
-
 </databaseChangeLog>

@@ -3,6 +3,7 @@
     "studentFee": {
       "home": {
         "title": "Student Fees",
+        "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Student Fee",
         "createOrEditLabel": "Create or edit a Student Fee",
         "notFound": "No Student Fees found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Student Fee"
       },
+      "id": "ID",
       "totalAcademicFee": "Total Academic Fee",
       "academicFeewaveOff": "Academic Feewave Off",
       "academicFeePaid": "Academic Fee Paid",

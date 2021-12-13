@@ -1,0 +1,344 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-student-fee-heading"
+        data-cy="StudentFeeCreateUpdateHeading"
+        jhiTranslate="jhipsterSampleApplicationApp.studentFee.home.createOrEditLabel"
+      >
+        Create or edit a Student Fee
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="jhipsterSampleApplicationApp.studentFee.totalAcademicFee"
+            for="field_totalAcademicFee"
+            >Total Academic Fee</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="totalAcademicFee"
+            id="field_totalAcademicFee"
+            data-cy="totalAcademicFee"
+            formControlName="totalAcademicFee"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="jhipsterSampleApplicationApp.studentFee.academicFeewaveOff"
+            for="field_academicFeewaveOff"
+            >Academic Feewave Off</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="academicFeewaveOff"
+            id="field_academicFeewaveOff"
+            data-cy="academicFeewaveOff"
+            formControlName="academicFeewaveOff"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="jhipsterSampleApplicationApp.studentFee.academicFeePaid"
+            for="field_academicFeePaid"
+            >Academic Fee Paid</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="academicFeePaid"
+            id="field_academicFeePaid"
+            data-cy="academicFeePaid"
+            formControlName="academicFeePaid"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="jhipsterSampleApplicationApp.studentFee.totalAcademicFeePaid"
+            for="field_totalAcademicFeePaid"
+            >Total Academic Fee Paid</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="totalAcademicFeePaid"
+            id="field_totalAcademicFeePaid"
+            data-cy="totalAcademicFeePaid"
+            formControlName="totalAcademicFeePaid"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="jhipsterSampleApplicationApp.studentFee.academicFeepending"
+            for="field_academicFeepending"
+            >Academic Feepending</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="academicFeepending"
+            id="field_academicFeepending"
+            data-cy="academicFeepending"
+            formControlName="academicFeepending"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.studentFee.busAlloted" for="field_busAlloted"
+            >Bus Alloted</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="busAlloted"
+            id="field_busAlloted"
+            data-cy="busAlloted"
+            formControlName="busAlloted"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.studentFee.hostelAlloted" for="field_hostelAlloted"
+            >Hostel Alloted</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="hostelAlloted"
+            id="field_hostelAlloted"
+            data-cy="hostelAlloted"
+            formControlName="hostelAlloted"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.studentFee.totalBusFee" for="field_totalBusFee"
+            >Total Bus Fee</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="totalBusFee"
+            id="field_totalBusFee"
+            data-cy="totalBusFee"
+            formControlName="totalBusFee"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.studentFee.busFeewaveOff" for="field_busFeewaveOff"
+            >Bus Feewave Off</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="busFeewaveOff"
+            id="field_busFeewaveOff"
+            data-cy="busFeewaveOff"
+            formControlName="busFeewaveOff"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.studentFee.busFeePaid" for="field_busFeePaid"
+            >Bus Fee Paid</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="busFeePaid"
+            id="field_busFeePaid"
+            data-cy="busFeePaid"
+            formControlName="busFeePaid"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="jhipsterSampleApplicationApp.studentFee.totalBusFeePaid"
+            for="field_totalBusFeePaid"
+            >Total Bus Fee Paid</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="totalBusFeePaid"
+            id="field_totalBusFeePaid"
+            data-cy="totalBusFeePaid"
+            formControlName="totalBusFeePaid"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.studentFee.busFeepending" for="field_busFeepending"
+            >Bus Feepending</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="busFeepending"
+            id="field_busFeepending"
+            data-cy="busFeepending"
+            formControlName="busFeepending"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.studentFee.totalHostelFee" for="field_totalHostelFee"
+            >Total Hostel Fee</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="totalHostelFee"
+            id="field_totalHostelFee"
+            data-cy="totalHostelFee"
+            formControlName="totalHostelFee"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="jhipsterSampleApplicationApp.studentFee.hostelFeewaveOff"
+            for="field_hostelFeewaveOff"
+            >Hostel Feewave Off</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="hostelFeewaveOff"
+            id="field_hostelFeewaveOff"
+            data-cy="hostelFeewaveOff"
+            formControlName="hostelFeewaveOff"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="jhipsterSampleApplicationApp.studentFee.totalHostelFeePaid"
+            for="field_totalHostelFeePaid"
+            >Total Hostel Fee Paid</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="totalHostelFeePaid"
+            id="field_totalHostelFeePaid"
+            data-cy="totalHostelFeePaid"
+            formControlName="totalHostelFeePaid"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.studentFee.hostelFeePaid" for="field_hostelFeePaid"
+            >Hostel Fee Paid</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="hostelFeePaid"
+            id="field_hostelFeePaid"
+            data-cy="hostelFeePaid"
+            formControlName="hostelFeePaid"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="jhipsterSampleApplicationApp.studentFee.hostelFeepending"
+            for="field_hostelFeepending"
+            >Hostel Feepending</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="hostelFeepending"
+            id="field_hostelFeepending"
+            data-cy="hostelFeepending"
+            formControlName="hostelFeepending"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.studentFee.hostelExpenses" for="field_hostelExpenses"
+            >Hostel Expenses</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="hostelExpenses"
+            id="field_hostelExpenses"
+            data-cy="hostelExpenses"
+            formControlName="hostelExpenses"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.studentFee.year" for="field_year">Year</label>
+          <input type="number" class="form-control" name="year" id="field_year" data-cy="year" formControlName="year" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.studentFee.comments" for="field_comments"
+            >Comments</label
+          >
+          <input type="text" class="form-control" name="comments" id="field_comments" data-cy="comments" formControlName="comments" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.studentFee.student" for="field_student"
+            >Student</label
+          >
+          <select class="form-control" id="field_student" data-cy="student" name="student" formControlName="student">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="studentOption.id === editForm.get('student')!.value?.id ? editForm.get('student')!.value : studentOption"
+              *ngFor="let studentOption of studentsSharedCollection; trackBy: trackStudentById"
+            >
+              {{ studentOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "page": {
+      "home": {
+        "title": "Pages",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Page",
+        "createOrEditLabel": "Create or edit a Page",
+        "notFound": "No Pages found"
+      },
+      "created": "A new Page is created with identifier {{ param }}",
+      "updated": "A Page is updated with identifier {{ param }}",
+      "deleted": "A Page is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Page {{ id }}?"
+      },
+      "detail": {
+        "title": "Page"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "modelId": "Model Id",
+      "pageId": "Page Id",
+      "type": "Type",
+      "fullScreen": "Full Screen",
+      "history": "History",
+      "genericObjectsList": "Generic Objects List",
+      "flexBoxes": "Flex Boxes"
+    }
+  }
+}

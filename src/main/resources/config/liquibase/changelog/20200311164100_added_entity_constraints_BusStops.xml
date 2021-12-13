@@ -2,17 +2,16 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
     <!--
         Added the constraints for entity BusStops.
     -->
     <changeSet id="20200311164100-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="bus_route_id"
                                  baseTableName="bus_stops"
-                                 constraintName="fk_bus_stops_bus_route_id"
+                                 constraintName="fk_bus_stops__bus_route_id"
                                  referencedColumnNames="id"
                                  referencedTableName="bus_route"/>
-
     </changeSet>
 </databaseChangeLog>

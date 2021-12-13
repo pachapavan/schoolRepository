@@ -1,40 +1,45 @@
 package com.school.app.web.rest;
 
-import com.school.app.JhipsterSampleApplicationApp;
-import com.school.app.domain.BusStops;
-import com.school.app.repository.BusStopsRepository;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityManager;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.school.app.IntegrationTest;
+import com.school.app.domain.BusStops;
+import com.school.app.repository.BusStopsRepository;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
+import javax.persistence.EntityManager;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * Integration tests for the {@link BusStopsResource} REST controller.
  */
-@SpringBootTest(classes = JhipsterSampleApplicationApp.class)
-
+@IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
-public class BusStopsResourceIT {
+class BusStopsResourceIT {
 
     private static final String DEFAULT_ROUTE_NAME = "AAAAAAAAAA";
     private static final String UPDATED_ROUTE_NAME = "BBBBBBBBBB";
 
     private static final String DEFAULT_BUS_STOPS = "AAAAAAAAAA";
     private static final String UPDATED_BUS_STOPS = "BBBBBBBBBB";
+
+    private static final String ENTITY_API_URL = "/api/bus-stops";
+    private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
+
+    private static Random random = new Random();
+    private static AtomicLong count = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
 
     @Autowired
     private BusStopsRepository busStopsRepository;
@@ -54,11 +59,10 @@ public class BusStopsResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BusStops createEntity(EntityManager em) {
-        BusStops busStops = new BusStops()
-            .routeName(DEFAULT_ROUTE_NAME)
-            .busStops(DEFAULT_BUS_STOPS);
+        BusStops busStops = new BusStops().routeName(DEFAULT_ROUTE_NAME).busStops(DEFAULT_BUS_STOPS);
         return busStops;
     }
+
     /**
      * Create an updated entity for this test.
      *
@@ -66,9 +70,7 @@ public class BusStopsResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BusStops createUpdatedEntity(EntityManager em) {
-        BusStops busStops = new BusStops()
-            .routeName(UPDATED_ROUTE_NAME)
-            .busStops(UPDATED_BUS_STOPS);
+        BusStops busStops = new BusStops().routeName(UPDATED_ROUTE_NAME).busStops(UPDATED_BUS_STOPS);
         return busStops;
     }
 
@@ -79,13 +81,11 @@ public class BusStopsResourceIT {
 
     @Test
     @Transactional
-    public void createBusStops() throws Exception {
+    void createBusStops() throws Exception {
         int databaseSizeBeforeCreate = busStopsRepository.findAll().size();
-
         // Create the BusStops
-        restBusStopsMockMvc.perform(post("/api/bus-stops")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(busStops)))
+        restBusStopsMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(busStops)))
             .andExpect(status().isCreated());
 
         // Validate the BusStops in the database
@@ -98,16 +98,15 @@ public class BusStopsResourceIT {
 
     @Test
     @Transactional
-    public void createBusStopsWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = busStopsRepository.findAll().size();
-
+    void createBusStopsWithExistingId() throws Exception {
         // Create the BusStops with an existing ID
         busStops.setId(1L);
 
+        int databaseSizeBeforeCreate = busStopsRepository.findAll().size();
+
         // An entity with an existing ID cannot be created, so this API call must fail
-        restBusStopsMockMvc.perform(post("/api/bus-stops")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(busStops)))
+        restBusStopsMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(busStops)))
             .andExpect(status().isBadRequest());
 
         // Validate the BusStops in the database
@@ -115,30 +114,31 @@ public class BusStopsResourceIT {
         assertThat(busStopsList).hasSize(databaseSizeBeforeCreate);
     }
 
-
     @Test
     @Transactional
-    public void getAllBusStops() throws Exception {
+    void getAllBusStops() throws Exception {
         // Initialize the database
         busStopsRepository.saveAndFlush(busStops);
 
         // Get all the busStopsList
-        restBusStopsMockMvc.perform(get("/api/bus-stops?sort=id,desc"))
+        restBusStopsMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(busStops.getId().intValue())))
             .andExpect(jsonPath("$.[*].routeName").value(hasItem(DEFAULT_ROUTE_NAME)))
             .andExpect(jsonPath("$.[*].busStops").value(hasItem(DEFAULT_BUS_STOPS)));
     }
-    
+
     @Test
     @Transactional
-    public void getBusStops() throws Exception {
+    void getBusStops() throws Exception {
         // Initialize the database
         busStopsRepository.saveAndFlush(busStops);
 
         // Get the busStops
-        restBusStopsMockMvc.perform(get("/api/bus-stops/{id}", busStops.getId()))
+        restBusStopsMockMvc
+            .perform(get(ENTITY_API_URL_ID, busStops.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(busStops.getId().intValue()))
@@ -148,15 +148,14 @@ public class BusStopsResourceIT {
 
     @Test
     @Transactional
-    public void getNonExistingBusStops() throws Exception {
+    void getNonExistingBusStops() throws Exception {
         // Get the busStops
-        restBusStopsMockMvc.perform(get("/api/bus-stops/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restBusStopsMockMvc.perform(get(ENTITY_API_URL_ID, Long.MAX_VALUE)).andExpect(status().isNotFound());
     }
 
     @Test
     @Transactional
-    public void updateBusStops() throws Exception {
+    void putNewBusStops() throws Exception {
         // Initialize the database
         busStopsRepository.saveAndFlush(busStops);
 
@@ -166,13 +165,14 @@ public class BusStopsResourceIT {
         BusStops updatedBusStops = busStopsRepository.findById(busStops.getId()).get();
         // Disconnect from session so that the updates on updatedBusStops are not directly saved in db
         em.detach(updatedBusStops);
-        updatedBusStops
-            .routeName(UPDATED_ROUTE_NAME)
-            .busStops(UPDATED_BUS_STOPS);
+        updatedBusStops.routeName(UPDATED_ROUTE_NAME).busStops(UPDATED_BUS_STOPS);
 
-        restBusStopsMockMvc.perform(put("/api/bus-stops")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedBusStops)))
+        restBusStopsMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, updatedBusStops.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(updatedBusStops))
+            )
             .andExpect(status().isOk());
 
         // Validate the BusStops in the database
@@ -185,15 +185,17 @@ public class BusStopsResourceIT {
 
     @Test
     @Transactional
-    public void updateNonExistingBusStops() throws Exception {
+    void putNonExistingBusStops() throws Exception {
         int databaseSizeBeforeUpdate = busStopsRepository.findAll().size();
-
-        // Create the BusStops
+        busStops.setId(count.incrementAndGet());
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restBusStopsMockMvc.perform(put("/api/bus-stops")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(busStops)))
+        restBusStopsMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, busStops.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(busStops))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the BusStops in the database
@@ -203,15 +205,167 @@ public class BusStopsResourceIT {
 
     @Test
     @Transactional
-    public void deleteBusStops() throws Exception {
+    void putWithIdMismatchBusStops() throws Exception {
+        int databaseSizeBeforeUpdate = busStopsRepository.findAll().size();
+        busStops.setId(count.incrementAndGet());
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restBusStopsMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, count.incrementAndGet())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(busStops))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the BusStops in the database
+        List<BusStops> busStopsList = busStopsRepository.findAll();
+        assertThat(busStopsList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void putWithMissingIdPathParamBusStops() throws Exception {
+        int databaseSizeBeforeUpdate = busStopsRepository.findAll().size();
+        busStops.setId(count.incrementAndGet());
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restBusStopsMockMvc
+            .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(busStops)))
+            .andExpect(status().isMethodNotAllowed());
+
+        // Validate the BusStops in the database
+        List<BusStops> busStopsList = busStopsRepository.findAll();
+        assertThat(busStopsList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void partialUpdateBusStopsWithPatch() throws Exception {
+        // Initialize the database
+        busStopsRepository.saveAndFlush(busStops);
+
+        int databaseSizeBeforeUpdate = busStopsRepository.findAll().size();
+
+        // Update the busStops using partial update
+        BusStops partialUpdatedBusStops = new BusStops();
+        partialUpdatedBusStops.setId(busStops.getId());
+
+        partialUpdatedBusStops.routeName(UPDATED_ROUTE_NAME);
+
+        restBusStopsMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, partialUpdatedBusStops.getId())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedBusStops))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the BusStops in the database
+        List<BusStops> busStopsList = busStopsRepository.findAll();
+        assertThat(busStopsList).hasSize(databaseSizeBeforeUpdate);
+        BusStops testBusStops = busStopsList.get(busStopsList.size() - 1);
+        assertThat(testBusStops.getRouteName()).isEqualTo(UPDATED_ROUTE_NAME);
+        assertThat(testBusStops.getBusStops()).isEqualTo(DEFAULT_BUS_STOPS);
+    }
+
+    @Test
+    @Transactional
+    void fullUpdateBusStopsWithPatch() throws Exception {
+        // Initialize the database
+        busStopsRepository.saveAndFlush(busStops);
+
+        int databaseSizeBeforeUpdate = busStopsRepository.findAll().size();
+
+        // Update the busStops using partial update
+        BusStops partialUpdatedBusStops = new BusStops();
+        partialUpdatedBusStops.setId(busStops.getId());
+
+        partialUpdatedBusStops.routeName(UPDATED_ROUTE_NAME).busStops(UPDATED_BUS_STOPS);
+
+        restBusStopsMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, partialUpdatedBusStops.getId())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedBusStops))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the BusStops in the database
+        List<BusStops> busStopsList = busStopsRepository.findAll();
+        assertThat(busStopsList).hasSize(databaseSizeBeforeUpdate);
+        BusStops testBusStops = busStopsList.get(busStopsList.size() - 1);
+        assertThat(testBusStops.getRouteName()).isEqualTo(UPDATED_ROUTE_NAME);
+        assertThat(testBusStops.getBusStops()).isEqualTo(UPDATED_BUS_STOPS);
+    }
+
+    @Test
+    @Transactional
+    void patchNonExistingBusStops() throws Exception {
+        int databaseSizeBeforeUpdate = busStopsRepository.findAll().size();
+        busStops.setId(count.incrementAndGet());
+
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
+        restBusStopsMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, busStops.getId())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(busStops))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the BusStops in the database
+        List<BusStops> busStopsList = busStopsRepository.findAll();
+        assertThat(busStopsList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void patchWithIdMismatchBusStops() throws Exception {
+        int databaseSizeBeforeUpdate = busStopsRepository.findAll().size();
+        busStops.setId(count.incrementAndGet());
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restBusStopsMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, count.incrementAndGet())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(busStops))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the BusStops in the database
+        List<BusStops> busStopsList = busStopsRepository.findAll();
+        assertThat(busStopsList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void patchWithMissingIdPathParamBusStops() throws Exception {
+        int databaseSizeBeforeUpdate = busStopsRepository.findAll().size();
+        busStops.setId(count.incrementAndGet());
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restBusStopsMockMvc
+            .perform(patch(ENTITY_API_URL).contentType("application/merge-patch+json").content(TestUtil.convertObjectToJsonBytes(busStops)))
+            .andExpect(status().isMethodNotAllowed());
+
+        // Validate the BusStops in the database
+        List<BusStops> busStopsList = busStopsRepository.findAll();
+        assertThat(busStopsList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void deleteBusStops() throws Exception {
         // Initialize the database
         busStopsRepository.saveAndFlush(busStops);
 
         int databaseSizeBeforeDelete = busStopsRepository.findAll().size();
 
         // Delete the busStops
-        restBusStopsMockMvc.perform(delete("/api/bus-stops/{id}", busStops.getId())
-            .accept(MediaType.APPLICATION_JSON))
+        restBusStopsMockMvc
+            .perform(delete(ENTITY_API_URL_ID, busStops.getId()).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

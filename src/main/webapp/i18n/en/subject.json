@@ -3,6 +3,7 @@
     "subject": {
       "home": {
         "title": "Subjects",
+        "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Subject",
         "createOrEditLabel": "Create or edit a Subject",
         "notFound": "No Subjects found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Subject"
       },
+      "id": "ID",
       "classname": "Classname",
       "section": "Section",
       "subjectName": "Subject Name",

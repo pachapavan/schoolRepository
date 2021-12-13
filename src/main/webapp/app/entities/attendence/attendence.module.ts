@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { JhipsterSampleApplicationSharedModule } from 'app/shared/shared.module';
-import { AttendenceComponent } from './attendence.component';
-import { AttendenceDetailComponent } from './attendence-detail.component';
-import { AttendenceUpdateComponent } from './attendence-update.component';
-import { AttendenceDeleteDialogComponent } from './attendence-delete-dialog.component';
-import { attendenceRoute } from './attendence.route';
+import { SharedModule } from 'app/shared/shared.module';
+import { AttendenceComponent } from './list/attendence.component';
+import { AttendenceDetailComponent } from './detail/attendence-detail.component';
+import { AttendenceUpdateComponent } from './update/attendence-update.component';
+import { AttendenceDeleteDialogComponent } from './delete/attendence-delete-dialog.component';
+import { AttendenceRoutingModule } from './route/attendence-routing.module';
 
 @NgModule({
-  imports: [JhipsterSampleApplicationSharedModule, RouterModule.forChild(attendenceRoute)],
+  imports: [SharedModule, AttendenceRoutingModule],
   declarations: [AttendenceComponent, AttendenceDetailComponent, AttendenceUpdateComponent, AttendenceDeleteDialogComponent],
-  entryComponents: [AttendenceDeleteDialogComponent]
+  entryComponents: [AttendenceDeleteDialogComponent],
 })
-export class JhipsterSampleApplicationAttendenceModule {}
+export class AttendenceModule {}

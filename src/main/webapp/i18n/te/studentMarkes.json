@@ -3,6 +3,7 @@
     "studentMarkes": {
       "home": {
         "title": "Student Markes",
+        "refreshListLabel": "Refresh list",
         "createLabel": "కొత్త Student Markes  సృష్టించండి",
         "createOrEditLabel": "Student Markes సృష్టించండి లేదా సవరించండి",
         "notFound": "No Student Markes found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Student Markes"
       },
+      "id": "ID",
       "examName": "Exam Name",
       "totalMarkes": "Total Markes",
       "markes": "Markes",
