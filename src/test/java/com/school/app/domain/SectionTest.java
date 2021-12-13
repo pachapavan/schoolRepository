@@ -1,13 +1,14 @@
 package com.school.app.domain;
 
-import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
-import com.school.app.web.rest.TestUtil;
 
-public class SectionTest {
+import com.school.app.web.rest.TestUtil;
+import org.junit.jupiter.api.Test;
+
+class SectionTest {
 
     @Test
-    public void equalsVerifier() throws Exception {
+    void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Section.class);
         Section section1 = new Section();
         section1.setId(1L);

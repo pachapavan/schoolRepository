@@ -1,33 +1,33 @@
 {
-    "name": "Section",
-    "fields": [
-        {
-            "fieldName": "name",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "sectionNumber",
-            "fieldType": "Long"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "className",
-            "otherEntityRelationshipName": "section",
-            "relationshipName": "className",
-            "otherEntityField": "id"
-        }
-    ],
-    "changelogDate": "20200311163400",
-    "entityTableName": "section",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "embedded": false,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "Section",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sectionNumber",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "className",
+      "otherEntityRelationshipName": "section",
+      "relationshipName": "className",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200311163400",
+  "entityTableName": "section",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

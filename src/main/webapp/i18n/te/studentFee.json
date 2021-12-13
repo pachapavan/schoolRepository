@@ -3,6 +3,7 @@
     "studentFee": {
       "home": {
         "title": "Student Fees",
+        "refreshListLabel": "Refresh list",
         "createLabel": "కొత్త Student Fee  సృష్టించండి",
         "createOrEditLabel": "Student Fee సృష్టించండి లేదా సవరించండి",
         "notFound": "No Student Fees found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Student Fee"
       },
+      "id": "ID",
       "totalAcademicFee": "Total Academic Fee",
       "academicFeewaveOff": "Academic Feewave Off",
       "academicFeePaid": "Academic Fee Paid",

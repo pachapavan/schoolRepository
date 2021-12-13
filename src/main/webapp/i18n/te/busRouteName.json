@@ -3,6 +3,7 @@
     "busRouteName": {
       "home": {
         "title": "Bus Route Names",
+        "refreshListLabel": "Refresh list",
         "createLabel": "కొత్త Bus Route Name  సృష్టించండి",
         "createOrEditLabel": "Bus Route Name సృష్టించండి లేదా సవరించండి",
         "notFound": "No Bus Route Names found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Bus Route Name"
       },
+      "id": "ID",
       "routeName": "Route Name",
       "busRoute": "Bus Route"
     }

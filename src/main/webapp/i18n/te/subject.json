@@ -3,6 +3,7 @@
     "subject": {
       "home": {
         "title": "Subjects",
+        "refreshListLabel": "Refresh list",
         "createLabel": "కొత్త Subject  సృష్టించండి",
         "createOrEditLabel": "Subject సృష్టించండి లేదా సవరించండి",
         "notFound": "No Subjects found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Subject"
       },
+      "id": "ID",
       "classname": "Classname",
       "section": "Section",
       "subjectName": "Subject Name",

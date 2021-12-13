@@ -1,27 +1,25 @@
 package com.school.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import java.time.LocalDate;
+import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
-import java.io.Serializable;
-import java.util.Objects;
-import java.time.LocalDate;
 
 /**
  * A Attendence.
  */
 @Entity
 @Table(name = "attendence")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Attendence implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "month")
@@ -34,12 +32,18 @@ public class Attendence implements Serializable {
     private Long dayspresent;
 
     @ManyToOne
-    @JsonIgnoreProperties("attendences")
+    @JsonIgnoreProperties(value = { "classes", "markes", "attendences", "fees", "busRouteNames" }, allowSetters = true)
     private Student student;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Attendence id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
@@ -47,11 +51,11 @@ public class Attendence implements Serializable {
     }
 
     public LocalDate getMonth() {
-        return month;
+        return this.month;
     }
 
     public Attendence month(LocalDate month) {
-        this.month = month;
+        this.setMonth(month);
         return this;
     }
 
@@ -60,11 +64,11 @@ public class Attendence implements Serializable {
     }
 
     public Long getTotalWorkingDays() {
-        return totalWorkingDays;
+        return this.totalWorkingDays;
     }
 
     public Attendence totalWorkingDays(Long totalWorkingDays) {
-        this.totalWorkingDays = totalWorkingDays;
+        this.setTotalWorkingDays(totalWorkingDays);
         return this;
     }
 
@@ -73,11 +77,11 @@ public class Attendence implements Serializable {
     }
 
     public Long getDayspresent() {
-        return dayspresent;
+        return this.dayspresent;
     }
 
     public Attendence dayspresent(Long dayspresent) {
-        this.dayspresent = dayspresent;
+        this.setDayspresent(dayspresent);
         return this;
     }
 
@@ -86,18 +90,19 @@ public class Attendence implements Serializable {
     }
 
     public Student getStudent() {
-        return student;
-    }
-
-    public Attendence student(Student student) {
-        this.student = student;
-        return this;
+        return this.student;
     }
 
     public void setStudent(Student student) {
         this.student = student;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    public Attendence student(Student student) {
+        this.setStudent(student);
+        return this;
+    }
+
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -112,9 +117,11 @@ public class Attendence implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "Attendence{" +

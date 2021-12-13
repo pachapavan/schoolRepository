@@ -1,26 +1,24 @@
 package com.school.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
-import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A Section.
  */
 @Entity
 @Table(name = "section")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Section implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
@@ -30,12 +28,18 @@ public class Section implements Serializable {
     private Long sectionNumber;
 
     @ManyToOne
-    @JsonIgnoreProperties("sections")
+    @JsonIgnoreProperties(value = { "sections", "student", "studentMarkes", "staff" }, allowSetters = true)
     private ClassName className;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Section id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
@@ -43,11 +47,11 @@ public class Section implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public Section name(String name) {
-        this.name = name;
+        this.setName(name);
         return this;
     }
 
@@ -56,11 +60,11 @@ public class Section implements Serializable {
     }
 
     public Long getSectionNumber() {
-        return sectionNumber;
+        return this.sectionNumber;
     }
 
     public Section sectionNumber(Long sectionNumber) {
-        this.sectionNumber = sectionNumber;
+        this.setSectionNumber(sectionNumber);
         return this;
     }
 
@@ -69,18 +73,19 @@ public class Section implements Serializable {
     }
 
     public ClassName getClassName() {
-        return className;
-    }
-
-    public Section className(ClassName className) {
-        this.className = className;
-        return this;
+        return this.className;
     }
 
     public void setClassName(ClassName className) {
         this.className = className;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    public Section className(ClassName className) {
+        this.setClassName(className);
+        return this;
+    }
+
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -95,9 +100,11 @@ public class Section implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "Section{" +

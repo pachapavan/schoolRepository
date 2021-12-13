@@ -3,6 +3,7 @@
     "student": {
       "home": {
         "title": "Students",
+        "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Student",
         "createOrEditLabel": "Create or edit a Student",
         "notFound": "No Students found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Student"
       },
+      "id": "ID",
       "studentId": "Student Id",
       "studentName": "Student Name",
       "parentName": "Parent Name",

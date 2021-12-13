@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { JhipsterSampleApplicationSharedModule } from 'app/shared/shared.module';
-import { StudentMarkesComponent } from './student-markes.component';
-import { StudentMarkesDetailComponent } from './student-markes-detail.component';
-import { StudentMarkesUpdateComponent } from './student-markes-update.component';
-import { StudentMarkesDeleteDialogComponent } from './student-markes-delete-dialog.component';
-import { studentMarkesRoute } from './student-markes.route';
+import { SharedModule } from 'app/shared/shared.module';
+import { StudentMarkesComponent } from './list/student-markes.component';
+import { StudentMarkesDetailComponent } from './detail/student-markes-detail.component';
+import { StudentMarkesUpdateComponent } from './update/student-markes-update.component';
+import { StudentMarkesDeleteDialogComponent } from './delete/student-markes-delete-dialog.component';
+import { StudentMarkesRoutingModule } from './route/student-markes-routing.module';
 
 @NgModule({
-  imports: [JhipsterSampleApplicationSharedModule, RouterModule.forChild(studentMarkesRoute)],
+  imports: [SharedModule, StudentMarkesRoutingModule],
   declarations: [StudentMarkesComponent, StudentMarkesDetailComponent, StudentMarkesUpdateComponent, StudentMarkesDeleteDialogComponent],
-  entryComponents: [StudentMarkesDeleteDialogComponent]
+  entryComponents: [StudentMarkesDeleteDialogComponent],
 })
-export class JhipsterSampleApplicationStudentMarkesModule {}
+export class StudentMarkesModule {}

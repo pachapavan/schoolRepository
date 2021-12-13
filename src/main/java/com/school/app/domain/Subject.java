@@ -1,26 +1,24 @@
 package com.school.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
-import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A Subject.
  */
 @Entity
 @Table(name = "subject")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Subject implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "classname")
@@ -39,12 +37,18 @@ public class Subject implements Serializable {
     private String subjectTeacher;
 
     @ManyToOne
-    @JsonIgnoreProperties("subjects")
+    @JsonIgnoreProperties(value = { "subjects", "classes", "student" }, allowSetters = true)
     private StudentMarkes studentMarkes;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Subject id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
@@ -52,11 +56,11 @@ public class Subject implements Serializable {
     }
 
     public String getClassname() {
-        return classname;
+        return this.classname;
     }
 
     public Subject classname(String classname) {
-        this.classname = classname;
+        this.setClassname(classname);
         return this;
     }
 
@@ -65,11 +69,11 @@ public class Subject implements Serializable {
     }
 
     public String getSection() {
-        return section;
+        return this.section;
     }
 
     public Subject section(String section) {
-        this.section = section;
+        this.setSection(section);
         return this;
     }
 
@@ -78,11 +82,11 @@ public class Subject implements Serializable {
     }
 
     public String getSubjectName() {
-        return subjectName;
+        return this.subjectName;
     }
 
     public Subject subjectName(String subjectName) {
-        this.subjectName = subjectName;
+        this.setSubjectName(subjectName);
         return this;
     }
 
@@ -91,11 +95,11 @@ public class Subject implements Serializable {
     }
 
     public String getSubjectCode() {
-        return subjectCode;
+        return this.subjectCode;
     }
 
     public Subject subjectCode(String subjectCode) {
-        this.subjectCode = subjectCode;
+        this.setSubjectCode(subjectCode);
         return this;
     }
 
@@ -104,11 +108,11 @@ public class Subject implements Serializable {
     }
 
     public String getSubjectTeacher() {
-        return subjectTeacher;
+        return this.subjectTeacher;
     }
 
     public Subject subjectTeacher(String subjectTeacher) {
-        this.subjectTeacher = subjectTeacher;
+        this.setSubjectTeacher(subjectTeacher);
         return this;
     }
 
@@ -117,18 +121,19 @@ public class Subject implements Serializable {
     }
 
     public StudentMarkes getStudentMarkes() {
-        return studentMarkes;
-    }
-
-    public Subject studentMarkes(StudentMarkes studentMarkes) {
-        this.studentMarkes = studentMarkes;
-        return this;
+        return this.studentMarkes;
     }
 
     public void setStudentMarkes(StudentMarkes studentMarkes) {
         this.studentMarkes = studentMarkes;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    public Subject studentMarkes(StudentMarkes studentMarkes) {
+        this.setStudentMarkes(studentMarkes);
+        return this;
+    }
+
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -143,9 +148,11 @@ public class Subject implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "Subject{" +

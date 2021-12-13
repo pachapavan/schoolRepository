@@ -1,0 +1,32 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "page": {
+      "home": {
+        "title": "Pages",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "కొత్త Page  సృష్టించండి",
+        "createOrEditLabel": "Page సృష్టించండి లేదా సవరించండి",
+        "notFound": "No Pages found"
+      },
+      "created": "{{ param }} ఐడీ తో ఒక కొత్త Page సృష్టించబడినది",
+      "updated": "{{ param }} ఐడీ తో ఒక కొత్త Page సవరించబడినది",
+      "deleted": "{{ param }} ఐడీ తో ఒక కొత్త Page తొలగించబడినది",
+      "delete": {
+        "question": "మీరు Page {{ id }} ఖచ్చితంగా తొలగించాలనుకుంటున్నారా?"
+      },
+      "detail": {
+        "title": "Page"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "modelId": "Model Id",
+      "pageId": "Page Id",
+      "type": "Type",
+      "fullScreen": "Full Screen",
+      "history": "History",
+      "genericObjectsList": "Generic Objects List",
+      "flexBoxes": "Flex Boxes"
+    }
+  }
+}

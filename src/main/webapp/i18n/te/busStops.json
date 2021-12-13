@@ -3,6 +3,7 @@
     "busStops": {
       "home": {
         "title": "Bus Stops",
+        "refreshListLabel": "Refresh list",
         "createLabel": "కొత్త Bus Stops  సృష్టించండి",
         "createOrEditLabel": "Bus Stops సృష్టించండి లేదా సవరించండి",
         "notFound": "No Bus Stops found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Bus Stops"
       },
+      "id": "ID",
       "routeName": "Route Name",
       "busStops": "Bus Stops",
       "busRoute": "Bus Route"

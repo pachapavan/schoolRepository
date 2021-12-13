@@ -3,6 +3,7 @@
     "section": {
       "home": {
         "title": "Sections",
+        "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Section",
         "createOrEditLabel": "Create or edit a Section",
         "notFound": "No Sections found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Section"
       },
+      "id": "ID",
       "name": "Name",
       "sectionNumber": "Section Number",
       "className": "Class Name"

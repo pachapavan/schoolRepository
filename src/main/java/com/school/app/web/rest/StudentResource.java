@@ -3,20 +3,19 @@ package com.school.app.web.rest;
 import com.school.app.domain.Student;
 import com.school.app.repository.StudentRepository;
 import com.school.app.web.rest.errors.BadRequestAlertException;
-
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
+import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.school.app.domain.Student}.
@@ -53,30 +52,111 @@ public class StudentResource {
             throw new BadRequestAlertException("A new student cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Student result = studentRepository.save(student);
-        return ResponseEntity.created(new URI("/api/students/" + result.getId()))
+        return ResponseEntity
+            .created(new URI("/api/students/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
     /**
-     * {@code PUT  /students} : Updates an existing student.
+     * {@code PUT  /students/:id} : Updates an existing student.
      *
+     * @param id the id of the student to save.
      * @param student the student to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated student,
      * or with status {@code 400 (Bad Request)} if the student is not valid,
      * or with status {@code 500 (Internal Server Error)} if the student couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/students")
-    public ResponseEntity<Student> updateStudent(@RequestBody Student student) throws URISyntaxException {
-        log.debug("REST request to update Student : {}", student);
+    @PutMapping("/students/{id}")
+    public ResponseEntity<Student> updateStudent(@PathVariable(value = "id", required = false) final Long id, @RequestBody Student student)
+        throws URISyntaxException {
+        log.debug("REST request to update Student : {}, {}", id, student);
         if (student.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        if (!Objects.equals(id, student.getId())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+
+        if (!studentRepository.existsById(id)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+
         Student result = studentRepository.save(student);
-        return ResponseEntity.ok()
+        return ResponseEntity
+            .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, student.getId().toString()))
             .body(result);
+    }
+
+    /**
+     * {@code PATCH  /students/:id} : Partial updates given fields of an existing student, field will ignore if it is null
+     *
+     * @param id the id of the student to save.
+     * @param student the student to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated student,
+     * or with status {@code 400 (Bad Request)} if the student is not valid,
+     * or with status {@code 404 (Not Found)} if the student is not found,
+     * or with status {@code 500 (Internal Server Error)} if the student couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PatchMapping(value = "/students/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    public ResponseEntity<Student> partialUpdateStudent(
+        @PathVariable(value = "id", required = false) final Long id,
+        @RequestBody Student student
+    ) throws URISyntaxException {
+        log.debug("REST request to partial update Student partially : {}, {}", id, student);
+        if (student.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (!Objects.equals(id, student.getId())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+
+        if (!studentRepository.existsById(id)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+
+        Optional<Student> result = studentRepository
+            .findById(student.getId())
+            .map(existingStudent -> {
+                if (student.getStudentId() != null) {
+                    existingStudent.setStudentId(student.getStudentId());
+                }
+                if (student.getStudentName() != null) {
+                    existingStudent.setStudentName(student.getStudentName());
+                }
+                if (student.getParentName() != null) {
+                    existingStudent.setParentName(student.getParentName());
+                }
+                if (student.getPhoneNumber() != null) {
+                    existingStudent.setPhoneNumber(student.getPhoneNumber());
+                }
+                if (student.getAddress() != null) {
+                    existingStudent.setAddress(student.getAddress());
+                }
+                if (student.getPhoto() != null) {
+                    existingStudent.setPhoto(student.getPhoto());
+                }
+                if (student.getPhotoContentType() != null) {
+                    existingStudent.setPhotoContentType(student.getPhotoContentType());
+                }
+                if (student.getStatus() != null) {
+                    existingStudent.setStatus(student.getStatus());
+                }
+                if (student.getComments() != null) {
+                    existingStudent.setComments(student.getComments());
+                }
+
+                return existingStudent;
+            })
+            .map(studentRepository::save);
+
+        return ResponseUtil.wrapOrNotFound(
+            result,
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, student.getId().toString())
+        );
     }
 
     /**
@@ -113,6 +193,9 @@ public class StudentResource {
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         log.debug("REST request to delete Student : {}", id);
         studentRepository.deleteById(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
     }
 }

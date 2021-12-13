@@ -1,0 +1,56 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="page">
+      <h2 data-cy="pageDetailsHeading"><span jhiTranslate="jhipsterSampleApplicationApp.page.detail.title">Page</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ page.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.page.name">Name</span></dt>
+        <dd>
+          <span>{{ page.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.page.description">Description</span></dt>
+        <dd>
+          <span>{{ page.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.page.modelId">Model Id</span></dt>
+        <dd>
+          <span>{{ page.modelId }}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.page.pageId">Page Id</span></dt>
+        <dd>
+          <span>{{ page.pageId }}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.page.type">Type</span></dt>
+        <dd>
+          <span>{{ page.type }}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.page.fullScreen">Full Screen</span></dt>
+        <dd>
+          <span>{{ page.fullScreen }}</span>
+        </dd>
+        <dt><span jhiTranslate="jhipsterSampleApplicationApp.page.history">History</span></dt>
+        <dd>
+          <span>{{ page.history }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/page', page.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

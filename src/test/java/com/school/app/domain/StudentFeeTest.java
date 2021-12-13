@@ -1,13 +1,14 @@
 package com.school.app.domain;
 
-import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
-import com.school.app.web.rest.TestUtil;
 
-public class StudentFeeTest {
+import com.school.app.web.rest.TestUtil;
+import org.junit.jupiter.api.Test;
+
+class StudentFeeTest {
 
     @Test
-    public void equalsVerifier() throws Exception {
+    void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(StudentFee.class);
         StudentFee studentFee1 = new StudentFee();
         studentFee1.setId(1L);

@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { JhipsterSampleApplicationSharedModule } from 'app/shared/shared.module';
-import { SubjectComponent } from './subject.component';
-import { SubjectDetailComponent } from './subject-detail.component';
-import { SubjectUpdateComponent } from './subject-update.component';
-import { SubjectDeleteDialogComponent } from './subject-delete-dialog.component';
-import { subjectRoute } from './subject.route';
+import { SharedModule } from 'app/shared/shared.module';
+import { SubjectComponent } from './list/subject.component';
+import { SubjectDetailComponent } from './detail/subject-detail.component';
+import { SubjectUpdateComponent } from './update/subject-update.component';
+import { SubjectDeleteDialogComponent } from './delete/subject-delete-dialog.component';
+import { SubjectRoutingModule } from './route/subject-routing.module';
 
 @NgModule({
-  imports: [JhipsterSampleApplicationSharedModule, RouterModule.forChild(subjectRoute)],
+  imports: [SharedModule, SubjectRoutingModule],
   declarations: [SubjectComponent, SubjectDetailComponent, SubjectUpdateComponent, SubjectDeleteDialogComponent],
-  entryComponents: [SubjectDeleteDialogComponent]
+  entryComponents: [SubjectDeleteDialogComponent],
 })
-export class JhipsterSampleApplicationSubjectModule {}
+export class SubjectModule {}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity DisplayAtt.
+    -->
+    <changeSet id="20211213093925-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="spacing_id"
+                                 baseTableName="display_att"
+                                 constraintName="fk_display_att__spacing_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="spacing"/>
+
+        <addForeignKeyConstraint baseColumnNames="attributes_id"
+                                 baseTableName="display_att"
+                                 constraintName="fk_display_att__attributes_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="attributes"/>
+
+        <addForeignKeyConstraint baseColumnNames="text_id"
+                                 baseTableName="display_att"
+                                 constraintName="fk_display_att__text_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="text"/>
+
+        <addForeignKeyConstraint baseColumnNames="badge_id"
+                                 baseTableName="display_att"
+                                 constraintName="fk_display_att__badge_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="badge"/>
+
+        <addForeignKeyConstraint baseColumnNames="icon_id"
+                                 baseTableName="display_att"
+                                 constraintName="fk_display_att__icon_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="icon"/>
+
+        <addForeignKeyConstraint baseColumnNames="image_id"
+                                 baseTableName="display_att"
+                                 constraintName="fk_display_att__image_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="image"/>
+
+        <addForeignKeyConstraint baseColumnNames="display_att_id"
+                                 baseTableName="display_att"
+                                 constraintName="fk_display_att__display_att_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tabel_values"/>
+    </changeSet>
+</databaseChangeLog>

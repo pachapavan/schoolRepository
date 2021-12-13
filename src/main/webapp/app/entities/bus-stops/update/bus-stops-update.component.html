@@ -1,0 +1,67 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-bus-stops-heading"
+        data-cy="BusStopsCreateUpdateHeading"
+        jhiTranslate="jhipsterSampleApplicationApp.busStops.home.createOrEditLabel"
+      >
+        Create or edit a Bus Stops
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.busStops.routeName" for="field_routeName"
+            >Route Name</label
+          >
+          <input type="text" class="form-control" name="routeName" id="field_routeName" data-cy="routeName" formControlName="routeName" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.busStops.busStops" for="field_busStops"
+            >Bus Stops</label
+          >
+          <input type="text" class="form-control" name="busStops" id="field_busStops" data-cy="busStops" formControlName="busStops" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.busStops.busRoute" for="field_busRoute"
+            >Bus Route</label
+          >
+          <select class="form-control" id="field_busRoute" data-cy="busRoute" name="busRoute" formControlName="busRoute">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="busRouteOption.id === editForm.get('busRoute')!.value?.id ? editForm.get('busRoute')!.value : busRouteOption"
+              *ngFor="let busRouteOption of busRoutesSharedCollection; trackBy: trackBusRouteById"
+            >
+              {{ busRouteOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

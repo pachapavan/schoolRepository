@@ -1,28 +1,26 @@
 package com.school.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A BusRoute.
  */
 @Entity
 @Table(name = "bus_route")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class BusRoute implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "route_name")
@@ -44,20 +42,28 @@ public class BusRoute implements Serializable {
     private String comments;
 
     @OneToMany(mappedBy = "busRoute")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "busRoute" }, allowSetters = true)
     private Set<BusRouteName> busRoutes = new HashSet<>();
 
     @OneToMany(mappedBy = "busRoute")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "busRoute" }, allowSetters = true)
     private Set<BusStops> busStops = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties("busRouteNames")
+    @JsonIgnoreProperties(value = { "classes", "markes", "attendences", "fees", "busRouteNames" }, allowSetters = true)
     private Student student;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public BusRoute id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
@@ -65,11 +71,11 @@ public class BusRoute implements Serializable {
     }
 
     public String getRouteName() {
-        return routeName;
+        return this.routeName;
     }
 
     public BusRoute routeName(String routeName) {
-        this.routeName = routeName;
+        this.setRouteName(routeName);
         return this;
     }
 
@@ -78,11 +84,11 @@ public class BusRoute implements Serializable {
     }
 
     public String getRouteDriver() {
-        return routeDriver;
+        return this.routeDriver;
     }
 
     public BusRoute routeDriver(String routeDriver) {
-        this.routeDriver = routeDriver;
+        this.setRouteDriver(routeDriver);
         return this;
     }
 
@@ -91,11 +97,11 @@ public class BusRoute implements Serializable {
     }
 
     public Long getBusNumber() {
-        return busNumber;
+        return this.busNumber;
     }
 
     public BusRoute busNumber(Long busNumber) {
-        this.busNumber = busNumber;
+        this.setBusNumber(busNumber);
         return this;
     }
 
@@ -104,11 +110,11 @@ public class BusRoute implements Serializable {
     }
 
     public Long getYear() {
-        return year;
+        return this.year;
     }
 
     public BusRoute year(Long year) {
-        this.year = year;
+        this.setYear(year);
         return this;
     }
 
@@ -117,11 +123,11 @@ public class BusRoute implements Serializable {
     }
 
     public String getStatus() {
-        return status;
+        return this.status;
     }
 
     public BusRoute status(String status) {
-        this.status = status;
+        this.setStatus(status);
         return this;
     }
 
@@ -130,11 +136,11 @@ public class BusRoute implements Serializable {
     }
 
     public String getComments() {
-        return comments;
+        return this.comments;
     }
 
     public BusRoute comments(String comments) {
-        this.comments = comments;
+        this.setComments(comments);
         return this;
     }
 
@@ -143,11 +149,21 @@ public class BusRoute implements Serializable {
     }
 
     public Set<BusRouteName> getBusRoutes() {
-        return busRoutes;
+        return this.busRoutes;
+    }
+
+    public void setBusRoutes(Set<BusRouteName> busRouteNames) {
+        if (this.busRoutes != null) {
+            this.busRoutes.forEach(i -> i.setBusRoute(null));
+        }
+        if (busRouteNames != null) {
+            busRouteNames.forEach(i -> i.setBusRoute(this));
+        }
+        this.busRoutes = busRouteNames;
     }
 
     public BusRoute busRoutes(Set<BusRouteName> busRouteNames) {
-        this.busRoutes = busRouteNames;
+        this.setBusRoutes(busRouteNames);
         return this;
     }
 
@@ -163,16 +179,22 @@ public class BusRoute implements Serializable {
         return this;
     }
 
-    public void setBusRoutes(Set<BusRouteName> busRouteNames) {
-        this.busRoutes = busRouteNames;
+    public Set<BusStops> getBusStops() {
+        return this.busStops;
     }
 
-    public Set<BusStops> getBusStops() {
-        return busStops;
+    public void setBusStops(Set<BusStops> busStops) {
+        if (this.busStops != null) {
+            this.busStops.forEach(i -> i.setBusRoute(null));
+        }
+        if (busStops != null) {
+            busStops.forEach(i -> i.setBusRoute(this));
+        }
+        this.busStops = busStops;
     }
 
     public BusRoute busStops(Set<BusStops> busStops) {
-        this.busStops = busStops;
+        this.setBusStops(busStops);
         return this;
     }
 
@@ -188,23 +210,20 @@ public class BusRoute implements Serializable {
         return this;
     }
 
-    public void setBusStops(Set<BusStops> busStops) {
-        this.busStops = busStops;
-    }
-
     public Student getStudent() {
-        return student;
-    }
-
-    public BusRoute student(Student student) {
-        this.student = student;
-        return this;
+        return this.student;
     }
 
     public void setStudent(Student student) {
         this.student = student;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    public BusRoute student(Student student) {
+        this.setStudent(student);
+        return this;
+    }
+
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -219,9 +238,11 @@ public class BusRoute implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "BusRoute{" +

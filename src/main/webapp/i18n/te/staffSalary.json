@@ -3,6 +3,7 @@
     "staffSalary": {
       "home": {
         "title": "Staff Salaries",
+        "refreshListLabel": "Refresh list",
         "createLabel": "కొత్త Staff Salary  సృష్టించండి",
         "createOrEditLabel": "Staff Salary సృష్టించండి లేదా సవరించండి",
         "notFound": "No Staff Salaries found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Staff Salary"
       },
+      "id": "ID",
       "salaryPaid": "Salary Paid",
       "month": "Month",
       "staff": "Staff"

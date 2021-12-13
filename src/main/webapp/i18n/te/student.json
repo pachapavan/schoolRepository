@@ -3,6 +3,7 @@
     "student": {
       "home": {
         "title": "Students",
+        "refreshListLabel": "Refresh list",
         "createLabel": "కొత్త Student  సృష్టించండి",
         "createOrEditLabel": "Student సృష్టించండి లేదా సవరించండి",
         "notFound": "No Students found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Student"
       },
+      "id": "ID",
       "studentId": "Student Id",
       "studentName": "Student Name",
       "parentName": "Parent Name",
