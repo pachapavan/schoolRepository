@@ -1,34 +1,33 @@
 package com.school.app.web.rest;
 
-import com.school.app.JhipsterSampleApplicationApp;
-import com.school.app.domain.StudentFee;
-import com.school.app.repository.StudentFeeRepository;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityManager;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.school.app.IntegrationTest;
+import com.school.app.domain.StudentFee;
+import com.school.app.repository.StudentFeeRepository;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
+import javax.persistence.EntityManager;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * Integration tests for the {@link StudentFeeResource} REST controller.
  */
-@SpringBootTest(classes = JhipsterSampleApplicationApp.class)
-
+@IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
-public class StudentFeeResourceIT {
+class StudentFeeResourceIT {
 
     private static final Long DEFAULT_TOTAL_ACADEMIC_FEE = 1L;
     private static final Long UPDATED_TOTAL_ACADEMIC_FEE = 2L;
@@ -90,6 +89,12 @@ public class StudentFeeResourceIT {
     private static final String DEFAULT_COMMENTS = "AAAAAAAAAA";
     private static final String UPDATED_COMMENTS = "BBBBBBBBBB";
 
+    private static final String ENTITY_API_URL = "/api/student-fees";
+    private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
+
+    private static Random random = new Random();
+    private static AtomicLong count = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
+
     @Autowired
     private StudentFeeRepository studentFeeRepository;
 
@@ -131,6 +136,7 @@ public class StudentFeeResourceIT {
             .comments(DEFAULT_COMMENTS);
         return studentFee;
     }
+
     /**
      * Create an updated entity for this test.
      *
@@ -169,13 +175,11 @@ public class StudentFeeResourceIT {
 
     @Test
     @Transactional
-    public void createStudentFee() throws Exception {
+    void createStudentFee() throws Exception {
         int databaseSizeBeforeCreate = studentFeeRepository.findAll().size();
-
         // Create the StudentFee
-        restStudentFeeMockMvc.perform(post("/api/student-fees")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(studentFee)))
+        restStudentFeeMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(studentFee)))
             .andExpect(status().isCreated());
 
         // Validate the StudentFee in the database
@@ -187,8 +191,8 @@ public class StudentFeeResourceIT {
         assertThat(testStudentFee.getAcademicFeePaid()).isEqualTo(DEFAULT_ACADEMIC_FEE_PAID);
         assertThat(testStudentFee.getTotalAcademicFeePaid()).isEqualTo(DEFAULT_TOTAL_ACADEMIC_FEE_PAID);
         assertThat(testStudentFee.getAcademicFeepending()).isEqualTo(DEFAULT_ACADEMIC_FEEPENDING);
-        assertThat(testStudentFee.isBusAlloted()).isEqualTo(DEFAULT_BUS_ALLOTED);
-        assertThat(testStudentFee.isHostelAlloted()).isEqualTo(DEFAULT_HOSTEL_ALLOTED);
+        assertThat(testStudentFee.getBusAlloted()).isEqualTo(DEFAULT_BUS_ALLOTED);
+        assertThat(testStudentFee.getHostelAlloted()).isEqualTo(DEFAULT_HOSTEL_ALLOTED);
         assertThat(testStudentFee.getTotalBusFee()).isEqualTo(DEFAULT_TOTAL_BUS_FEE);
         assertThat(testStudentFee.getBusFeewaveOff()).isEqualTo(DEFAULT_BUS_FEEWAVE_OFF);
         assertThat(testStudentFee.getBusFeePaid()).isEqualTo(DEFAULT_BUS_FEE_PAID);
@@ -206,16 +210,15 @@ public class StudentFeeResourceIT {
 
     @Test
     @Transactional
-    public void createStudentFeeWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = studentFeeRepository.findAll().size();
-
+    void createStudentFeeWithExistingId() throws Exception {
         // Create the StudentFee with an existing ID
         studentFee.setId(1L);
 
+        int databaseSizeBeforeCreate = studentFeeRepository.findAll().size();
+
         // An entity with an existing ID cannot be created, so this API call must fail
-        restStudentFeeMockMvc.perform(post("/api/student-fees")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(studentFee)))
+        restStudentFeeMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(studentFee)))
             .andExpect(status().isBadRequest());
 
         // Validate the StudentFee in the database
@@ -223,15 +226,15 @@ public class StudentFeeResourceIT {
         assertThat(studentFeeList).hasSize(databaseSizeBeforeCreate);
     }
 
-
     @Test
     @Transactional
-    public void getAllStudentFees() throws Exception {
+    void getAllStudentFees() throws Exception {
         // Initialize the database
         studentFeeRepository.saveAndFlush(studentFee);
 
         // Get all the studentFeeList
-        restStudentFeeMockMvc.perform(get("/api/student-fees?sort=id,desc"))
+        restStudentFeeMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(studentFee.getId().intValue())))
@@ -256,15 +259,16 @@ public class StudentFeeResourceIT {
             .andExpect(jsonPath("$.[*].year").value(hasItem(DEFAULT_YEAR.intValue())))
             .andExpect(jsonPath("$.[*].comments").value(hasItem(DEFAULT_COMMENTS)));
     }
-    
+
     @Test
     @Transactional
-    public void getStudentFee() throws Exception {
+    void getStudentFee() throws Exception {
         // Initialize the database
         studentFeeRepository.saveAndFlush(studentFee);
 
         // Get the studentFee
-        restStudentFeeMockMvc.perform(get("/api/student-fees/{id}", studentFee.getId()))
+        restStudentFeeMockMvc
+            .perform(get(ENTITY_API_URL_ID, studentFee.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(studentFee.getId().intValue()))
@@ -292,15 +296,14 @@ public class StudentFeeResourceIT {
 
     @Test
     @Transactional
-    public void getNonExistingStudentFee() throws Exception {
+    void getNonExistingStudentFee() throws Exception {
         // Get the studentFee
-        restStudentFeeMockMvc.perform(get("/api/student-fees/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restStudentFeeMockMvc.perform(get(ENTITY_API_URL_ID, Long.MAX_VALUE)).andExpect(status().isNotFound());
     }
 
     @Test
     @Transactional
-    public void updateStudentFee() throws Exception {
+    void putNewStudentFee() throws Exception {
         // Initialize the database
         studentFeeRepository.saveAndFlush(studentFee);
 
@@ -332,9 +335,12 @@ public class StudentFeeResourceIT {
             .year(UPDATED_YEAR)
             .comments(UPDATED_COMMENTS);
 
-        restStudentFeeMockMvc.perform(put("/api/student-fees")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedStudentFee)))
+        restStudentFeeMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, updatedStudentFee.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(updatedStudentFee))
+            )
             .andExpect(status().isOk());
 
         // Validate the StudentFee in the database
@@ -346,8 +352,8 @@ public class StudentFeeResourceIT {
         assertThat(testStudentFee.getAcademicFeePaid()).isEqualTo(UPDATED_ACADEMIC_FEE_PAID);
         assertThat(testStudentFee.getTotalAcademicFeePaid()).isEqualTo(UPDATED_TOTAL_ACADEMIC_FEE_PAID);
         assertThat(testStudentFee.getAcademicFeepending()).isEqualTo(UPDATED_ACADEMIC_FEEPENDING);
-        assertThat(testStudentFee.isBusAlloted()).isEqualTo(UPDATED_BUS_ALLOTED);
-        assertThat(testStudentFee.isHostelAlloted()).isEqualTo(UPDATED_HOSTEL_ALLOTED);
+        assertThat(testStudentFee.getBusAlloted()).isEqualTo(UPDATED_BUS_ALLOTED);
+        assertThat(testStudentFee.getHostelAlloted()).isEqualTo(UPDATED_HOSTEL_ALLOTED);
         assertThat(testStudentFee.getTotalBusFee()).isEqualTo(UPDATED_TOTAL_BUS_FEE);
         assertThat(testStudentFee.getBusFeewaveOff()).isEqualTo(UPDATED_BUS_FEEWAVE_OFF);
         assertThat(testStudentFee.getBusFeePaid()).isEqualTo(UPDATED_BUS_FEE_PAID);
@@ -365,15 +371,17 @@ public class StudentFeeResourceIT {
 
     @Test
     @Transactional
-    public void updateNonExistingStudentFee() throws Exception {
+    void putNonExistingStudentFee() throws Exception {
         int databaseSizeBeforeUpdate = studentFeeRepository.findAll().size();
-
-        // Create the StudentFee
+        studentFee.setId(count.incrementAndGet());
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restStudentFeeMockMvc.perform(put("/api/student-fees")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(studentFee)))
+        restStudentFeeMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, studentFee.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(studentFee))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the StudentFee in the database
@@ -383,15 +391,234 @@ public class StudentFeeResourceIT {
 
     @Test
     @Transactional
-    public void deleteStudentFee() throws Exception {
+    void putWithIdMismatchStudentFee() throws Exception {
+        int databaseSizeBeforeUpdate = studentFeeRepository.findAll().size();
+        studentFee.setId(count.incrementAndGet());
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restStudentFeeMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, count.incrementAndGet())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(studentFee))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the StudentFee in the database
+        List<StudentFee> studentFeeList = studentFeeRepository.findAll();
+        assertThat(studentFeeList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void putWithMissingIdPathParamStudentFee() throws Exception {
+        int databaseSizeBeforeUpdate = studentFeeRepository.findAll().size();
+        studentFee.setId(count.incrementAndGet());
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restStudentFeeMockMvc
+            .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(studentFee)))
+            .andExpect(status().isMethodNotAllowed());
+
+        // Validate the StudentFee in the database
+        List<StudentFee> studentFeeList = studentFeeRepository.findAll();
+        assertThat(studentFeeList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void partialUpdateStudentFeeWithPatch() throws Exception {
+        // Initialize the database
+        studentFeeRepository.saveAndFlush(studentFee);
+
+        int databaseSizeBeforeUpdate = studentFeeRepository.findAll().size();
+
+        // Update the studentFee using partial update
+        StudentFee partialUpdatedStudentFee = new StudentFee();
+        partialUpdatedStudentFee.setId(studentFee.getId());
+
+        partialUpdatedStudentFee
+            .totalAcademicFee(UPDATED_TOTAL_ACADEMIC_FEE)
+            .totalAcademicFeePaid(UPDATED_TOTAL_ACADEMIC_FEE_PAID)
+            .hostelAlloted(UPDATED_HOSTEL_ALLOTED)
+            .busFeePaid(UPDATED_BUS_FEE_PAID)
+            .totalBusFeePaid(UPDATED_TOTAL_BUS_FEE_PAID)
+            .busFeepending(UPDATED_BUS_FEEPENDING)
+            .hostelFeewaveOff(UPDATED_HOSTEL_FEEWAVE_OFF)
+            .totalHostelFeePaid(UPDATED_TOTAL_HOSTEL_FEE_PAID)
+            .comments(UPDATED_COMMENTS);
+
+        restStudentFeeMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, partialUpdatedStudentFee.getId())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedStudentFee))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the StudentFee in the database
+        List<StudentFee> studentFeeList = studentFeeRepository.findAll();
+        assertThat(studentFeeList).hasSize(databaseSizeBeforeUpdate);
+        StudentFee testStudentFee = studentFeeList.get(studentFeeList.size() - 1);
+        assertThat(testStudentFee.getTotalAcademicFee()).isEqualTo(UPDATED_TOTAL_ACADEMIC_FEE);
+        assertThat(testStudentFee.getAcademicFeewaveOff()).isEqualTo(DEFAULT_ACADEMIC_FEEWAVE_OFF);
+        assertThat(testStudentFee.getAcademicFeePaid()).isEqualTo(DEFAULT_ACADEMIC_FEE_PAID);
+        assertThat(testStudentFee.getTotalAcademicFeePaid()).isEqualTo(UPDATED_TOTAL_ACADEMIC_FEE_PAID);
+        assertThat(testStudentFee.getAcademicFeepending()).isEqualTo(DEFAULT_ACADEMIC_FEEPENDING);
+        assertThat(testStudentFee.getBusAlloted()).isEqualTo(DEFAULT_BUS_ALLOTED);
+        assertThat(testStudentFee.getHostelAlloted()).isEqualTo(UPDATED_HOSTEL_ALLOTED);
+        assertThat(testStudentFee.getTotalBusFee()).isEqualTo(DEFAULT_TOTAL_BUS_FEE);
+        assertThat(testStudentFee.getBusFeewaveOff()).isEqualTo(DEFAULT_BUS_FEEWAVE_OFF);
+        assertThat(testStudentFee.getBusFeePaid()).isEqualTo(UPDATED_BUS_FEE_PAID);
+        assertThat(testStudentFee.getTotalBusFeePaid()).isEqualTo(UPDATED_TOTAL_BUS_FEE_PAID);
+        assertThat(testStudentFee.getBusFeepending()).isEqualTo(UPDATED_BUS_FEEPENDING);
+        assertThat(testStudentFee.getTotalHostelFee()).isEqualTo(DEFAULT_TOTAL_HOSTEL_FEE);
+        assertThat(testStudentFee.getHostelFeewaveOff()).isEqualTo(UPDATED_HOSTEL_FEEWAVE_OFF);
+        assertThat(testStudentFee.getTotalHostelFeePaid()).isEqualTo(UPDATED_TOTAL_HOSTEL_FEE_PAID);
+        assertThat(testStudentFee.getHostelFeePaid()).isEqualTo(DEFAULT_HOSTEL_FEE_PAID);
+        assertThat(testStudentFee.getHostelFeepending()).isEqualTo(DEFAULT_HOSTEL_FEEPENDING);
+        assertThat(testStudentFee.getHostelExpenses()).isEqualTo(DEFAULT_HOSTEL_EXPENSES);
+        assertThat(testStudentFee.getYear()).isEqualTo(DEFAULT_YEAR);
+        assertThat(testStudentFee.getComments()).isEqualTo(UPDATED_COMMENTS);
+    }
+
+    @Test
+    @Transactional
+    void fullUpdateStudentFeeWithPatch() throws Exception {
+        // Initialize the database
+        studentFeeRepository.saveAndFlush(studentFee);
+
+        int databaseSizeBeforeUpdate = studentFeeRepository.findAll().size();
+
+        // Update the studentFee using partial update
+        StudentFee partialUpdatedStudentFee = new StudentFee();
+        partialUpdatedStudentFee.setId(studentFee.getId());
+
+        partialUpdatedStudentFee
+            .totalAcademicFee(UPDATED_TOTAL_ACADEMIC_FEE)
+            .academicFeewaveOff(UPDATED_ACADEMIC_FEEWAVE_OFF)
+            .academicFeePaid(UPDATED_ACADEMIC_FEE_PAID)
+            .totalAcademicFeePaid(UPDATED_TOTAL_ACADEMIC_FEE_PAID)
+            .academicFeepending(UPDATED_ACADEMIC_FEEPENDING)
+            .busAlloted(UPDATED_BUS_ALLOTED)
+            .hostelAlloted(UPDATED_HOSTEL_ALLOTED)
+            .totalBusFee(UPDATED_TOTAL_BUS_FEE)
+            .busFeewaveOff(UPDATED_BUS_FEEWAVE_OFF)
+            .busFeePaid(UPDATED_BUS_FEE_PAID)
+            .totalBusFeePaid(UPDATED_TOTAL_BUS_FEE_PAID)
+            .busFeepending(UPDATED_BUS_FEEPENDING)
+            .totalHostelFee(UPDATED_TOTAL_HOSTEL_FEE)
+            .hostelFeewaveOff(UPDATED_HOSTEL_FEEWAVE_OFF)
+            .totalHostelFeePaid(UPDATED_TOTAL_HOSTEL_FEE_PAID)
+            .hostelFeePaid(UPDATED_HOSTEL_FEE_PAID)
+            .hostelFeepending(UPDATED_HOSTEL_FEEPENDING)
+            .hostelExpenses(UPDATED_HOSTEL_EXPENSES)
+            .year(UPDATED_YEAR)
+            .comments(UPDATED_COMMENTS);
+
+        restStudentFeeMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, partialUpdatedStudentFee.getId())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedStudentFee))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the StudentFee in the database
+        List<StudentFee> studentFeeList = studentFeeRepository.findAll();
+        assertThat(studentFeeList).hasSize(databaseSizeBeforeUpdate);
+        StudentFee testStudentFee = studentFeeList.get(studentFeeList.size() - 1);
+        assertThat(testStudentFee.getTotalAcademicFee()).isEqualTo(UPDATED_TOTAL_ACADEMIC_FEE);
+        assertThat(testStudentFee.getAcademicFeewaveOff()).isEqualTo(UPDATED_ACADEMIC_FEEWAVE_OFF);
+        assertThat(testStudentFee.getAcademicFeePaid()).isEqualTo(UPDATED_ACADEMIC_FEE_PAID);
+        assertThat(testStudentFee.getTotalAcademicFeePaid()).isEqualTo(UPDATED_TOTAL_ACADEMIC_FEE_PAID);
+        assertThat(testStudentFee.getAcademicFeepending()).isEqualTo(UPDATED_ACADEMIC_FEEPENDING);
+        assertThat(testStudentFee.getBusAlloted()).isEqualTo(UPDATED_BUS_ALLOTED);
+        assertThat(testStudentFee.getHostelAlloted()).isEqualTo(UPDATED_HOSTEL_ALLOTED);
+        assertThat(testStudentFee.getTotalBusFee()).isEqualTo(UPDATED_TOTAL_BUS_FEE);
+        assertThat(testStudentFee.getBusFeewaveOff()).isEqualTo(UPDATED_BUS_FEEWAVE_OFF);
+        assertThat(testStudentFee.getBusFeePaid()).isEqualTo(UPDATED_BUS_FEE_PAID);
+        assertThat(testStudentFee.getTotalBusFeePaid()).isEqualTo(UPDATED_TOTAL_BUS_FEE_PAID);
+        assertThat(testStudentFee.getBusFeepending()).isEqualTo(UPDATED_BUS_FEEPENDING);
+        assertThat(testStudentFee.getTotalHostelFee()).isEqualTo(UPDATED_TOTAL_HOSTEL_FEE);
+        assertThat(testStudentFee.getHostelFeewaveOff()).isEqualTo(UPDATED_HOSTEL_FEEWAVE_OFF);
+        assertThat(testStudentFee.getTotalHostelFeePaid()).isEqualTo(UPDATED_TOTAL_HOSTEL_FEE_PAID);
+        assertThat(testStudentFee.getHostelFeePaid()).isEqualTo(UPDATED_HOSTEL_FEE_PAID);
+        assertThat(testStudentFee.getHostelFeepending()).isEqualTo(UPDATED_HOSTEL_FEEPENDING);
+        assertThat(testStudentFee.getHostelExpenses()).isEqualTo(UPDATED_HOSTEL_EXPENSES);
+        assertThat(testStudentFee.getYear()).isEqualTo(UPDATED_YEAR);
+        assertThat(testStudentFee.getComments()).isEqualTo(UPDATED_COMMENTS);
+    }
+
+    @Test
+    @Transactional
+    void patchNonExistingStudentFee() throws Exception {
+        int databaseSizeBeforeUpdate = studentFeeRepository.findAll().size();
+        studentFee.setId(count.incrementAndGet());
+
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
+        restStudentFeeMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, studentFee.getId())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(studentFee))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the StudentFee in the database
+        List<StudentFee> studentFeeList = studentFeeRepository.findAll();
+        assertThat(studentFeeList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void patchWithIdMismatchStudentFee() throws Exception {
+        int databaseSizeBeforeUpdate = studentFeeRepository.findAll().size();
+        studentFee.setId(count.incrementAndGet());
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restStudentFeeMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, count.incrementAndGet())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(studentFee))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the StudentFee in the database
+        List<StudentFee> studentFeeList = studentFeeRepository.findAll();
+        assertThat(studentFeeList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void patchWithMissingIdPathParamStudentFee() throws Exception {
+        int databaseSizeBeforeUpdate = studentFeeRepository.findAll().size();
+        studentFee.setId(count.incrementAndGet());
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restStudentFeeMockMvc
+            .perform(
+                patch(ENTITY_API_URL).contentType("application/merge-patch+json").content(TestUtil.convertObjectToJsonBytes(studentFee))
+            )
+            .andExpect(status().isMethodNotAllowed());
+
+        // Validate the StudentFee in the database
+        List<StudentFee> studentFeeList = studentFeeRepository.findAll();
+        assertThat(studentFeeList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void deleteStudentFee() throws Exception {
         // Initialize the database
         studentFeeRepository.saveAndFlush(studentFee);
 
         int databaseSizeBeforeDelete = studentFeeRepository.findAll().size();
 
         // Delete the studentFee
-        restStudentFeeMockMvc.perform(delete("/api/student-fees/{id}", studentFee.getId())
-            .accept(MediaType.APPLICATION_JSON))
+        restStudentFeeMockMvc
+            .perform(delete(ENTITY_API_URL_ID, studentFee.getId()).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

@@ -1,61 +1,61 @@
 {
-    "name": "BusRoute",
-    "fields": [
-        {
-            "fieldName": "routeName",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "routeDriver",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "busNumber",
-            "fieldType": "Long"
-        },
-        {
-            "fieldName": "year",
-            "fieldType": "Long"
-        },
-        {
-            "fieldName": "status",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "comments",
-            "fieldType": "String"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "busRouteName",
-            "otherEntityRelationshipName": "busRoute",
-            "relationshipName": "busRoute"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "busStops",
-            "otherEntityRelationshipName": "busRoute",
-            "relationshipName": "busStop"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "student",
-            "otherEntityRelationshipName": "busRouteName",
-            "relationshipName": "student",
-            "otherEntityField": "id"
-        }
-    ],
-    "changelogDate": "20200311163900",
-    "entityTableName": "bus_route",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "embedded": false,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "BusRoute",
+  "fields": [
+    {
+      "fieldName": "routeName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "routeDriver",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "busNumber",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "year",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "comments",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "busRouteName",
+      "otherEntityRelationshipName": "busRoute",
+      "relationshipName": "busRoute"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "busStops",
+      "otherEntityRelationshipName": "busRoute",
+      "relationshipName": "busStop"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "student",
+      "otherEntityRelationshipName": "busRouteName",
+      "relationshipName": "student",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200311163900",
+  "entityTableName": "bus_route",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

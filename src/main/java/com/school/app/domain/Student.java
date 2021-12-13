@@ -1,27 +1,26 @@
 package com.school.app.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Student.
  */
 @Entity
 @Table(name = "student")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Student implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "student_id")
@@ -53,28 +52,39 @@ public class Student implements Serializable {
     private String comments;
 
     @OneToMany(mappedBy = "student")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "sections", "student", "studentMarkes", "staff" }, allowSetters = true)
     private Set<ClassName> classes = new HashSet<>();
 
     @OneToMany(mappedBy = "student")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "subjects", "classes", "student" }, allowSetters = true)
     private Set<StudentMarkes> markes = new HashSet<>();
 
     @OneToMany(mappedBy = "student")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "student" }, allowSetters = true)
     private Set<Attendence> attendences = new HashSet<>();
 
     @OneToMany(mappedBy = "student")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "student" }, allowSetters = true)
     private Set<StudentFee> fees = new HashSet<>();
 
     @OneToMany(mappedBy = "student")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "busRoutes", "busStops", "student" }, allowSetters = true)
     private Set<BusRoute> busRouteNames = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Student id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
@@ -82,11 +92,11 @@ public class Student implements Serializable {
     }
 
     public Long getStudentId() {
-        return studentId;
+        return this.studentId;
     }
 
     public Student studentId(Long studentId) {
-        this.studentId = studentId;
+        this.setStudentId(studentId);
         return this;
     }
 
@@ -95,11 +105,11 @@ public class Student implements Serializable {
     }
 
     public String getStudentName() {
-        return studentName;
+        return this.studentName;
     }
 
     public Student studentName(String studentName) {
-        this.studentName = studentName;
+        this.setStudentName(studentName);
         return this;
     }
 
@@ -108,11 +118,11 @@ public class Student implements Serializable {
     }
 
     public String getParentName() {
-        return parentName;
+        return this.parentName;
     }
 
     public Student parentName(String parentName) {
-        this.parentName = parentName;
+        this.setParentName(parentName);
         return this;
     }
 
@@ -121,11 +131,11 @@ public class Student implements Serializable {
     }
 
     public Long getPhoneNumber() {
-        return phoneNumber;
+        return this.phoneNumber;
     }
 
     public Student phoneNumber(Long phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        this.setPhoneNumber(phoneNumber);
         return this;
     }
 
@@ -134,11 +144,11 @@ public class Student implements Serializable {
     }
 
     public String getAddress() {
-        return address;
+        return this.address;
     }
 
     public Student address(String address) {
-        this.address = address;
+        this.setAddress(address);
         return this;
     }
 
@@ -147,11 +157,11 @@ public class Student implements Serializable {
     }
 
     public byte[] getPhoto() {
-        return photo;
+        return this.photo;
     }
 
     public Student photo(byte[] photo) {
-        this.photo = photo;
+        this.setPhoto(photo);
         return this;
     }
 
@@ -160,7 +170,7 @@ public class Student implements Serializable {
     }
 
     public String getPhotoContentType() {
-        return photoContentType;
+        return this.photoContentType;
     }
 
     public Student photoContentType(String photoContentType) {
@@ -173,11 +183,11 @@ public class Student implements Serializable {
     }
 
     public String getStatus() {
-        return status;
+        return this.status;
     }
 
     public Student status(String status) {
-        this.status = status;
+        this.setStatus(status);
         return this;
     }
 
@@ -186,11 +196,11 @@ public class Student implements Serializable {
     }
 
     public String getComments() {
-        return comments;
+        return this.comments;
     }
 
     public Student comments(String comments) {
-        this.comments = comments;
+        this.setComments(comments);
         return this;
     }
 
@@ -199,11 +209,21 @@ public class Student implements Serializable {
     }
 
     public Set<ClassName> getClasses() {
-        return classes;
+        return this.classes;
+    }
+
+    public void setClasses(Set<ClassName> classNames) {
+        if (this.classes != null) {
+            this.classes.forEach(i -> i.setStudent(null));
+        }
+        if (classNames != null) {
+            classNames.forEach(i -> i.setStudent(this));
+        }
+        this.classes = classNames;
     }
 
     public Student classes(Set<ClassName> classNames) {
-        this.classes = classNames;
+        this.setClasses(classNames);
         return this;
     }
 
@@ -219,16 +239,22 @@ public class Student implements Serializable {
         return this;
     }
 
-    public void setClasses(Set<ClassName> classNames) {
-        this.classes = classNames;
+    public Set<StudentMarkes> getMarkes() {
+        return this.markes;
     }
 
-    public Set<StudentMarkes> getMarkes() {
-        return markes;
+    public void setMarkes(Set<StudentMarkes> studentMarkes) {
+        if (this.markes != null) {
+            this.markes.forEach(i -> i.setStudent(null));
+        }
+        if (studentMarkes != null) {
+            studentMarkes.forEach(i -> i.setStudent(this));
+        }
+        this.markes = studentMarkes;
     }
 
     public Student markes(Set<StudentMarkes> studentMarkes) {
-        this.markes = studentMarkes;
+        this.setMarkes(studentMarkes);
         return this;
     }
 
@@ -244,16 +270,22 @@ public class Student implements Serializable {
         return this;
     }
 
-    public void setMarkes(Set<StudentMarkes> studentMarkes) {
-        this.markes = studentMarkes;
+    public Set<Attendence> getAttendences() {
+        return this.attendences;
     }
 
-    public Set<Attendence> getAttendences() {
-        return attendences;
+    public void setAttendences(Set<Attendence> attendences) {
+        if (this.attendences != null) {
+            this.attendences.forEach(i -> i.setStudent(null));
+        }
+        if (attendences != null) {
+            attendences.forEach(i -> i.setStudent(this));
+        }
+        this.attendences = attendences;
     }
 
     public Student attendences(Set<Attendence> attendences) {
-        this.attendences = attendences;
+        this.setAttendences(attendences);
         return this;
     }
 
@@ -269,16 +301,22 @@ public class Student implements Serializable {
         return this;
     }
 
-    public void setAttendences(Set<Attendence> attendences) {
-        this.attendences = attendences;
+    public Set<StudentFee> getFees() {
+        return this.fees;
     }
 
-    public Set<StudentFee> getFees() {
-        return fees;
+    public void setFees(Set<StudentFee> studentFees) {
+        if (this.fees != null) {
+            this.fees.forEach(i -> i.setStudent(null));
+        }
+        if (studentFees != null) {
+            studentFees.forEach(i -> i.setStudent(this));
+        }
+        this.fees = studentFees;
     }
 
     public Student fees(Set<StudentFee> studentFees) {
-        this.fees = studentFees;
+        this.setFees(studentFees);
         return this;
     }
 
@@ -294,16 +332,22 @@ public class Student implements Serializable {
         return this;
     }
 
-    public void setFees(Set<StudentFee> studentFees) {
-        this.fees = studentFees;
+    public Set<BusRoute> getBusRouteNames() {
+        return this.busRouteNames;
     }
 
-    public Set<BusRoute> getBusRouteNames() {
-        return busRouteNames;
+    public void setBusRouteNames(Set<BusRoute> busRoutes) {
+        if (this.busRouteNames != null) {
+            this.busRouteNames.forEach(i -> i.setStudent(null));
+        }
+        if (busRoutes != null) {
+            busRoutes.forEach(i -> i.setStudent(this));
+        }
+        this.busRouteNames = busRoutes;
     }
 
     public Student busRouteNames(Set<BusRoute> busRoutes) {
-        this.busRouteNames = busRoutes;
+        this.setBusRouteNames(busRoutes);
         return this;
     }
 
@@ -319,10 +363,7 @@ public class Student implements Serializable {
         return this;
     }
 
-    public void setBusRouteNames(Set<BusRoute> busRoutes) {
-        this.busRouteNames = busRoutes;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -337,9 +378,11 @@ public class Student implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "Student{" +

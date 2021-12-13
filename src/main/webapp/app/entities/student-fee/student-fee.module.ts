@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { JhipsterSampleApplicationSharedModule } from 'app/shared/shared.module';
-import { StudentFeeComponent } from './student-fee.component';
-import { StudentFeeDetailComponent } from './student-fee-detail.component';
-import { StudentFeeUpdateComponent } from './student-fee-update.component';
-import { StudentFeeDeleteDialogComponent } from './student-fee-delete-dialog.component';
-import { studentFeeRoute } from './student-fee.route';
+import { SharedModule } from 'app/shared/shared.module';
+import { StudentFeeComponent } from './list/student-fee.component';
+import { StudentFeeDetailComponent } from './detail/student-fee-detail.component';
+import { StudentFeeUpdateComponent } from './update/student-fee-update.component';
+import { StudentFeeDeleteDialogComponent } from './delete/student-fee-delete-dialog.component';
+import { StudentFeeRoutingModule } from './route/student-fee-routing.module';
 
 @NgModule({
-  imports: [JhipsterSampleApplicationSharedModule, RouterModule.forChild(studentFeeRoute)],
+  imports: [SharedModule, StudentFeeRoutingModule],
   declarations: [StudentFeeComponent, StudentFeeDetailComponent, StudentFeeUpdateComponent, StudentFeeDeleteDialogComponent],
-  entryComponents: [StudentFeeDeleteDialogComponent]
+  entryComponents: [StudentFeeDeleteDialogComponent],
 })
-export class JhipsterSampleApplicationStudentFeeModule {}
+export class StudentFeeModule {}

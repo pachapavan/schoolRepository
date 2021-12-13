@@ -1,53 +1,53 @@
 {
-    "name": "ClassName",
-    "fields": [
-        {
-            "fieldName": "name",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "classNumber",
-            "fieldType": "Long"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "section",
-            "otherEntityRelationshipName": "className",
-            "relationshipName": "section"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "student",
-            "otherEntityRelationshipName": "class",
-            "relationshipName": "student",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "studentMarkes",
-            "otherEntityRelationshipName": "class",
-            "relationshipName": "studentMarkes",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "staff",
-            "otherEntityRelationshipName": "teacher",
-            "relationshipName": "staff",
-            "otherEntityField": "id"
-        }
-    ],
-    "changelogDate": "20200311163300",
-    "entityTableName": "class_name",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "embedded": false,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "ClassName",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "classNumber",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "section",
+      "otherEntityRelationshipName": "className",
+      "relationshipName": "section"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "student",
+      "otherEntityRelationshipName": "class",
+      "relationshipName": "student",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "studentMarkes",
+      "otherEntityRelationshipName": "class",
+      "relationshipName": "studentMarkes",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "staff",
+      "otherEntityRelationshipName": "teacher",
+      "relationshipName": "staff",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200311163300",
+  "entityTableName": "class_name",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

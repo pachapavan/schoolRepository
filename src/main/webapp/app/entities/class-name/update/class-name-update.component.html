@@ -1,0 +1,110 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-class-name-heading"
+        data-cy="ClassNameCreateUpdateHeading"
+        jhiTranslate="jhipsterSampleApplicationApp.className.home.createOrEditLabel"
+      >
+        Create or edit a Class Name
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.className.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.className.classNumber" for="field_classNumber"
+            >Class Number</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="classNumber"
+            id="field_classNumber"
+            data-cy="classNumber"
+            formControlName="classNumber"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.className.student" for="field_student"
+            >Student</label
+          >
+          <select class="form-control" id="field_student" data-cy="student" name="student" formControlName="student">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="studentOption.id === editForm.get('student')!.value?.id ? editForm.get('student')!.value : studentOption"
+              *ngFor="let studentOption of studentsSharedCollection; trackBy: trackStudentById"
+            >
+              {{ studentOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.className.studentMarkes" for="field_studentMarkes"
+            >Student Markes</label
+          >
+          <select
+            class="form-control"
+            id="field_studentMarkes"
+            data-cy="studentMarkes"
+            name="studentMarkes"
+            formControlName="studentMarkes"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                studentMarkesOption.id === editForm.get('studentMarkes')!.value?.id
+                  ? editForm.get('studentMarkes')!.value
+                  : studentMarkesOption
+              "
+              *ngFor="let studentMarkesOption of studentMarkesSharedCollection; trackBy: trackStudentMarkesById"
+            >
+              {{ studentMarkesOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.className.staff" for="field_staff">Staff</label>
+          <select class="form-control" id="field_staff" data-cy="staff" name="staff" formControlName="staff">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="staffOption.id === editForm.get('staff')!.value?.id ? editForm.get('staff')!.value : staffOption"
+              *ngFor="let staffOption of staffSharedCollection; trackBy: trackStaffById"
+            >
+              {{ staffOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

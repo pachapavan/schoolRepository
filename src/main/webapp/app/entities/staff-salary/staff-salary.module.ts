@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { JhipsterSampleApplicationSharedModule } from 'app/shared/shared.module';
-import { StaffSalaryComponent } from './staff-salary.component';
-import { StaffSalaryDetailComponent } from './staff-salary-detail.component';
-import { StaffSalaryUpdateComponent } from './staff-salary-update.component';
-import { StaffSalaryDeleteDialogComponent } from './staff-salary-delete-dialog.component';
-import { staffSalaryRoute } from './staff-salary.route';
+import { SharedModule } from 'app/shared/shared.module';
+import { StaffSalaryComponent } from './list/staff-salary.component';
+import { StaffSalaryDetailComponent } from './detail/staff-salary-detail.component';
+import { StaffSalaryUpdateComponent } from './update/staff-salary-update.component';
+import { StaffSalaryDeleteDialogComponent } from './delete/staff-salary-delete-dialog.component';
+import { StaffSalaryRoutingModule } from './route/staff-salary-routing.module';
 
 @NgModule({
-  imports: [JhipsterSampleApplicationSharedModule, RouterModule.forChild(staffSalaryRoute)],
+  imports: [SharedModule, StaffSalaryRoutingModule],
   declarations: [StaffSalaryComponent, StaffSalaryDetailComponent, StaffSalaryUpdateComponent, StaffSalaryDeleteDialogComponent],
-  entryComponents: [StaffSalaryDeleteDialogComponent]
+  entryComponents: [StaffSalaryDeleteDialogComponent],
 })
-export class JhipsterSampleApplicationStaffSalaryModule {}
+export class StaffSalaryModule {}

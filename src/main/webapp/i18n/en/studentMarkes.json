@@ -3,6 +3,7 @@
     "studentMarkes": {
       "home": {
         "title": "Student Markes",
+        "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Student Markes",
         "createOrEditLabel": "Create or edit a Student Markes",
         "notFound": "No Student Markes found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Student Markes"
       },
+      "id": "ID",
       "examName": "Exam Name",
       "totalMarkes": "Total Markes",
       "markes": "Markes",
