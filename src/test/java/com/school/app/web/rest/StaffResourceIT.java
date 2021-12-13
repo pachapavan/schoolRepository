@@ -1,35 +1,34 @@
 package com.school.app.web.rest;
 
-import com.school.app.JhipsterSampleApplicationApp;
-import com.school.app.domain.Staff;
-import com.school.app.repository.StaffRepository;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
-import javax.persistence.EntityManager;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.school.app.IntegrationTest;
+import com.school.app.domain.Staff;
+import com.school.app.repository.StaffRepository;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
+import javax.persistence.EntityManager;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
+
 /**
  * Integration tests for the {@link StaffResource} REST controller.
  */
-@SpringBootTest(classes = JhipsterSampleApplicationApp.class)
-
+@IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
-public class StaffResourceIT {
+class StaffResourceIT {
 
     private static final Long DEFAULT_STAFF_ID = 1L;
     private static final Long UPDATED_STAFF_ID = 2L;
@@ -56,6 +55,12 @@ public class StaffResourceIT {
 
     private static final Long DEFAULT_SALARY = 1L;
     private static final Long UPDATED_SALARY = 2L;
+
+    private static final String ENTITY_API_URL = "/api/staff";
+    private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
+
+    private static Random random = new Random();
+    private static AtomicLong count = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
 
     @Autowired
     private StaffRepository staffRepository;
@@ -87,6 +92,7 @@ public class StaffResourceIT {
             .salary(DEFAULT_SALARY);
         return staff;
     }
+
     /**
      * Create an updated entity for this test.
      *
@@ -114,13 +120,11 @@ public class StaffResourceIT {
 
     @Test
     @Transactional
-    public void createStaff() throws Exception {
+    void createStaff() throws Exception {
         int databaseSizeBeforeCreate = staffRepository.findAll().size();
-
         // Create the Staff
-        restStaffMockMvc.perform(post("/api/staff")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(staff)))
+        restStaffMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(staff)))
             .andExpect(status().isCreated());
 
         // Validate the Staff in the database
@@ -133,23 +137,22 @@ public class StaffResourceIT {
         assertThat(testStaff.getAddress()).isEqualTo(DEFAULT_ADDRESS);
         assertThat(testStaff.getPhoto()).isEqualTo(DEFAULT_PHOTO);
         assertThat(testStaff.getPhotoContentType()).isEqualTo(DEFAULT_PHOTO_CONTENT_TYPE);
-        assertThat(testStaff.isIsTeachingStaff()).isEqualTo(DEFAULT_IS_TEACHING_STAFF);
+        assertThat(testStaff.getIsTeachingStaff()).isEqualTo(DEFAULT_IS_TEACHING_STAFF);
         assertThat(testStaff.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testStaff.getSalary()).isEqualTo(DEFAULT_SALARY);
     }
 
     @Test
     @Transactional
-    public void createStaffWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = staffRepository.findAll().size();
-
+    void createStaffWithExistingId() throws Exception {
         // Create the Staff with an existing ID
         staff.setId(1L);
 
+        int databaseSizeBeforeCreate = staffRepository.findAll().size();
+
         // An entity with an existing ID cannot be created, so this API call must fail
-        restStaffMockMvc.perform(post("/api/staff")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(staff)))
+        restStaffMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(staff)))
             .andExpect(status().isBadRequest());
 
         // Validate the Staff in the database
@@ -157,15 +160,15 @@ public class StaffResourceIT {
         assertThat(staffList).hasSize(databaseSizeBeforeCreate);
     }
 
-
     @Test
     @Transactional
-    public void getAllStaff() throws Exception {
+    void getAllStaff() throws Exception {
         // Initialize the database
         staffRepository.saveAndFlush(staff);
 
         // Get all the staffList
-        restStaffMockMvc.perform(get("/api/staff?sort=id,desc"))
+        restStaffMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(staff.getId().intValue())))
@@ -179,15 +182,16 @@ public class StaffResourceIT {
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)))
             .andExpect(jsonPath("$.[*].salary").value(hasItem(DEFAULT_SALARY.intValue())));
     }
-    
+
     @Test
     @Transactional
-    public void getStaff() throws Exception {
+    void getStaff() throws Exception {
         // Initialize the database
         staffRepository.saveAndFlush(staff);
 
         // Get the staff
-        restStaffMockMvc.perform(get("/api/staff/{id}", staff.getId()))
+        restStaffMockMvc
+            .perform(get(ENTITY_API_URL_ID, staff.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(staff.getId().intValue()))
@@ -204,15 +208,14 @@ public class StaffResourceIT {
 
     @Test
     @Transactional
-    public void getNonExistingStaff() throws Exception {
+    void getNonExistingStaff() throws Exception {
         // Get the staff
-        restStaffMockMvc.perform(get("/api/staff/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restStaffMockMvc.perform(get(ENTITY_API_URL_ID, Long.MAX_VALUE)).andExpect(status().isNotFound());
     }
 
     @Test
     @Transactional
-    public void updateStaff() throws Exception {
+    void putNewStaff() throws Exception {
         // Initialize the database
         staffRepository.saveAndFlush(staff);
 
@@ -233,9 +236,12 @@ public class StaffResourceIT {
             .status(UPDATED_STATUS)
             .salary(UPDATED_SALARY);
 
-        restStaffMockMvc.perform(put("/api/staff")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedStaff)))
+        restStaffMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, updatedStaff.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(updatedStaff))
+            )
             .andExpect(status().isOk());
 
         // Validate the Staff in the database
@@ -248,22 +254,24 @@ public class StaffResourceIT {
         assertThat(testStaff.getAddress()).isEqualTo(UPDATED_ADDRESS);
         assertThat(testStaff.getPhoto()).isEqualTo(UPDATED_PHOTO);
         assertThat(testStaff.getPhotoContentType()).isEqualTo(UPDATED_PHOTO_CONTENT_TYPE);
-        assertThat(testStaff.isIsTeachingStaff()).isEqualTo(UPDATED_IS_TEACHING_STAFF);
+        assertThat(testStaff.getIsTeachingStaff()).isEqualTo(UPDATED_IS_TEACHING_STAFF);
         assertThat(testStaff.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testStaff.getSalary()).isEqualTo(UPDATED_SALARY);
     }
 
     @Test
     @Transactional
-    public void updateNonExistingStaff() throws Exception {
+    void putNonExistingStaff() throws Exception {
         int databaseSizeBeforeUpdate = staffRepository.findAll().size();
-
-        // Create the Staff
+        staff.setId(count.incrementAndGet());
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restStaffMockMvc.perform(put("/api/staff")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(staff)))
+        restStaffMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, staff.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(staff))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the Staff in the database
@@ -273,15 +281,196 @@ public class StaffResourceIT {
 
     @Test
     @Transactional
-    public void deleteStaff() throws Exception {
+    void putWithIdMismatchStaff() throws Exception {
+        int databaseSizeBeforeUpdate = staffRepository.findAll().size();
+        staff.setId(count.incrementAndGet());
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restStaffMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, count.incrementAndGet())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(staff))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the Staff in the database
+        List<Staff> staffList = staffRepository.findAll();
+        assertThat(staffList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void putWithMissingIdPathParamStaff() throws Exception {
+        int databaseSizeBeforeUpdate = staffRepository.findAll().size();
+        staff.setId(count.incrementAndGet());
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restStaffMockMvc
+            .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(staff)))
+            .andExpect(status().isMethodNotAllowed());
+
+        // Validate the Staff in the database
+        List<Staff> staffList = staffRepository.findAll();
+        assertThat(staffList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void partialUpdateStaffWithPatch() throws Exception {
+        // Initialize the database
+        staffRepository.saveAndFlush(staff);
+
+        int databaseSizeBeforeUpdate = staffRepository.findAll().size();
+
+        // Update the staff using partial update
+        Staff partialUpdatedStaff = new Staff();
+        partialUpdatedStaff.setId(staff.getId());
+
+        partialUpdatedStaff
+            .staffName(UPDATED_STAFF_NAME)
+            .phoneNumber(UPDATED_PHONE_NUMBER)
+            .photo(UPDATED_PHOTO)
+            .photoContentType(UPDATED_PHOTO_CONTENT_TYPE)
+            .status(UPDATED_STATUS)
+            .salary(UPDATED_SALARY);
+
+        restStaffMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, partialUpdatedStaff.getId())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedStaff))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Staff in the database
+        List<Staff> staffList = staffRepository.findAll();
+        assertThat(staffList).hasSize(databaseSizeBeforeUpdate);
+        Staff testStaff = staffList.get(staffList.size() - 1);
+        assertThat(testStaff.getStaffId()).isEqualTo(DEFAULT_STAFF_ID);
+        assertThat(testStaff.getStaffName()).isEqualTo(UPDATED_STAFF_NAME);
+        assertThat(testStaff.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
+        assertThat(testStaff.getAddress()).isEqualTo(DEFAULT_ADDRESS);
+        assertThat(testStaff.getPhoto()).isEqualTo(UPDATED_PHOTO);
+        assertThat(testStaff.getPhotoContentType()).isEqualTo(UPDATED_PHOTO_CONTENT_TYPE);
+        assertThat(testStaff.getIsTeachingStaff()).isEqualTo(DEFAULT_IS_TEACHING_STAFF);
+        assertThat(testStaff.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testStaff.getSalary()).isEqualTo(UPDATED_SALARY);
+    }
+
+    @Test
+    @Transactional
+    void fullUpdateStaffWithPatch() throws Exception {
+        // Initialize the database
+        staffRepository.saveAndFlush(staff);
+
+        int databaseSizeBeforeUpdate = staffRepository.findAll().size();
+
+        // Update the staff using partial update
+        Staff partialUpdatedStaff = new Staff();
+        partialUpdatedStaff.setId(staff.getId());
+
+        partialUpdatedStaff
+            .staffId(UPDATED_STAFF_ID)
+            .staffName(UPDATED_STAFF_NAME)
+            .phoneNumber(UPDATED_PHONE_NUMBER)
+            .address(UPDATED_ADDRESS)
+            .photo(UPDATED_PHOTO)
+            .photoContentType(UPDATED_PHOTO_CONTENT_TYPE)
+            .isTeachingStaff(UPDATED_IS_TEACHING_STAFF)
+            .status(UPDATED_STATUS)
+            .salary(UPDATED_SALARY);
+
+        restStaffMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, partialUpdatedStaff.getId())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedStaff))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Staff in the database
+        List<Staff> staffList = staffRepository.findAll();
+        assertThat(staffList).hasSize(databaseSizeBeforeUpdate);
+        Staff testStaff = staffList.get(staffList.size() - 1);
+        assertThat(testStaff.getStaffId()).isEqualTo(UPDATED_STAFF_ID);
+        assertThat(testStaff.getStaffName()).isEqualTo(UPDATED_STAFF_NAME);
+        assertThat(testStaff.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
+        assertThat(testStaff.getAddress()).isEqualTo(UPDATED_ADDRESS);
+        assertThat(testStaff.getPhoto()).isEqualTo(UPDATED_PHOTO);
+        assertThat(testStaff.getPhotoContentType()).isEqualTo(UPDATED_PHOTO_CONTENT_TYPE);
+        assertThat(testStaff.getIsTeachingStaff()).isEqualTo(UPDATED_IS_TEACHING_STAFF);
+        assertThat(testStaff.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testStaff.getSalary()).isEqualTo(UPDATED_SALARY);
+    }
+
+    @Test
+    @Transactional
+    void patchNonExistingStaff() throws Exception {
+        int databaseSizeBeforeUpdate = staffRepository.findAll().size();
+        staff.setId(count.incrementAndGet());
+
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
+        restStaffMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, staff.getId())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(staff))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the Staff in the database
+        List<Staff> staffList = staffRepository.findAll();
+        assertThat(staffList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void patchWithIdMismatchStaff() throws Exception {
+        int databaseSizeBeforeUpdate = staffRepository.findAll().size();
+        staff.setId(count.incrementAndGet());
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restStaffMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, count.incrementAndGet())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(staff))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the Staff in the database
+        List<Staff> staffList = staffRepository.findAll();
+        assertThat(staffList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void patchWithMissingIdPathParamStaff() throws Exception {
+        int databaseSizeBeforeUpdate = staffRepository.findAll().size();
+        staff.setId(count.incrementAndGet());
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restStaffMockMvc
+            .perform(patch(ENTITY_API_URL).contentType("application/merge-patch+json").content(TestUtil.convertObjectToJsonBytes(staff)))
+            .andExpect(status().isMethodNotAllowed());
+
+        // Validate the Staff in the database
+        List<Staff> staffList = staffRepository.findAll();
+        assertThat(staffList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void deleteStaff() throws Exception {
         // Initialize the database
         staffRepository.saveAndFlush(staff);
 
         int databaseSizeBeforeDelete = staffRepository.findAll().size();
 
         // Delete the staff
-        restStaffMockMvc.perform(delete("/api/staff/{id}", staff.getId())
-            .accept(MediaType.APPLICATION_JSON))
+        restStaffMockMvc
+            .perform(delete(ENTITY_API_URL_ID, staff.getId()).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

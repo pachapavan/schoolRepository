@@ -2,29 +2,28 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
     <!--
         Added the constraints for entity ClassName.
     -->
     <changeSet id="20200311163300-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="student_id"
                                  baseTableName="class_name"
-                                 constraintName="fk_class_name_student_id"
+                                 constraintName="fk_class_name__student_id"
                                  referencedColumnNames="id"
                                  referencedTableName="student"/>
 
         <addForeignKeyConstraint baseColumnNames="student_markes_id"
                                  baseTableName="class_name"
-                                 constraintName="fk_class_name_student_markes_id"
+                                 constraintName="fk_class_name__student_markes_id"
                                  referencedColumnNames="id"
                                  referencedTableName="student_markes"/>
 
         <addForeignKeyConstraint baseColumnNames="staff_id"
                                  baseTableName="class_name"
-                                 constraintName="fk_class_name_staff_id"
+                                 constraintName="fk_class_name__staff_id"
                                  referencedColumnNames="id"
                                  referencedTableName="staff"/>
-
     </changeSet>
 </databaseChangeLog>

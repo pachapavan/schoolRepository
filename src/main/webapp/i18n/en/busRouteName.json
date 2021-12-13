@@ -3,6 +3,7 @@
     "busRouteName": {
       "home": {
         "title": "Bus Route Names",
+        "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Bus Route Name",
         "createOrEditLabel": "Create or edit a Bus Route Name",
         "notFound": "No Bus Route Names found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Bus Route Name"
       },
+      "id": "ID",
       "routeName": "Route Name",
       "busRoute": "Bus Route"
     }

@@ -1,26 +1,24 @@
 package com.school.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
-import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A StudentFee.
  */
 @Entity
 @Table(name = "student_fee")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class StudentFee implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "total_academic_fee")
@@ -84,12 +82,18 @@ public class StudentFee implements Serializable {
     private String comments;
 
     @ManyToOne
-    @JsonIgnoreProperties("fees")
+    @JsonIgnoreProperties(value = { "classes", "markes", "attendences", "fees", "busRouteNames" }, allowSetters = true)
     private Student student;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public StudentFee id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
@@ -97,11 +101,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getTotalAcademicFee() {
-        return totalAcademicFee;
+        return this.totalAcademicFee;
     }
 
     public StudentFee totalAcademicFee(Long totalAcademicFee) {
-        this.totalAcademicFee = totalAcademicFee;
+        this.setTotalAcademicFee(totalAcademicFee);
         return this;
     }
 
@@ -110,11 +114,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getAcademicFeewaveOff() {
-        return academicFeewaveOff;
+        return this.academicFeewaveOff;
     }
 
     public StudentFee academicFeewaveOff(Long academicFeewaveOff) {
-        this.academicFeewaveOff = academicFeewaveOff;
+        this.setAcademicFeewaveOff(academicFeewaveOff);
         return this;
     }
 
@@ -123,11 +127,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getAcademicFeePaid() {
-        return academicFeePaid;
+        return this.academicFeePaid;
     }
 
     public StudentFee academicFeePaid(Long academicFeePaid) {
-        this.academicFeePaid = academicFeePaid;
+        this.setAcademicFeePaid(academicFeePaid);
         return this;
     }
 
@@ -136,11 +140,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getTotalAcademicFeePaid() {
-        return totalAcademicFeePaid;
+        return this.totalAcademicFeePaid;
     }
 
     public StudentFee totalAcademicFeePaid(Long totalAcademicFeePaid) {
-        this.totalAcademicFeePaid = totalAcademicFeePaid;
+        this.setTotalAcademicFeePaid(totalAcademicFeePaid);
         return this;
     }
 
@@ -149,11 +153,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getAcademicFeepending() {
-        return academicFeepending;
+        return this.academicFeepending;
     }
 
     public StudentFee academicFeepending(Long academicFeepending) {
-        this.academicFeepending = academicFeepending;
+        this.setAcademicFeepending(academicFeepending);
         return this;
     }
 
@@ -161,12 +165,12 @@ public class StudentFee implements Serializable {
         this.academicFeepending = academicFeepending;
     }
 
-    public Boolean isBusAlloted() {
-        return busAlloted;
+    public Boolean getBusAlloted() {
+        return this.busAlloted;
     }
 
     public StudentFee busAlloted(Boolean busAlloted) {
-        this.busAlloted = busAlloted;
+        this.setBusAlloted(busAlloted);
         return this;
     }
 
@@ -174,12 +178,12 @@ public class StudentFee implements Serializable {
         this.busAlloted = busAlloted;
     }
 
-    public Boolean isHostelAlloted() {
-        return hostelAlloted;
+    public Boolean getHostelAlloted() {
+        return this.hostelAlloted;
     }
 
     public StudentFee hostelAlloted(Boolean hostelAlloted) {
-        this.hostelAlloted = hostelAlloted;
+        this.setHostelAlloted(hostelAlloted);
         return this;
     }
 
@@ -188,11 +192,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getTotalBusFee() {
-        return totalBusFee;
+        return this.totalBusFee;
     }
 
     public StudentFee totalBusFee(Long totalBusFee) {
-        this.totalBusFee = totalBusFee;
+        this.setTotalBusFee(totalBusFee);
         return this;
     }
 
@@ -201,11 +205,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getBusFeewaveOff() {
-        return busFeewaveOff;
+        return this.busFeewaveOff;
     }
 
     public StudentFee busFeewaveOff(Long busFeewaveOff) {
-        this.busFeewaveOff = busFeewaveOff;
+        this.setBusFeewaveOff(busFeewaveOff);
         return this;
     }
 
@@ -214,11 +218,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getBusFeePaid() {
-        return busFeePaid;
+        return this.busFeePaid;
     }
 
     public StudentFee busFeePaid(Long busFeePaid) {
-        this.busFeePaid = busFeePaid;
+        this.setBusFeePaid(busFeePaid);
         return this;
     }
 
@@ -227,11 +231,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getTotalBusFeePaid() {
-        return totalBusFeePaid;
+        return this.totalBusFeePaid;
     }
 
     public StudentFee totalBusFeePaid(Long totalBusFeePaid) {
-        this.totalBusFeePaid = totalBusFeePaid;
+        this.setTotalBusFeePaid(totalBusFeePaid);
         return this;
     }
 
@@ -240,11 +244,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getBusFeepending() {
-        return busFeepending;
+        return this.busFeepending;
     }
 
     public StudentFee busFeepending(Long busFeepending) {
-        this.busFeepending = busFeepending;
+        this.setBusFeepending(busFeepending);
         return this;
     }
 
@@ -253,11 +257,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getTotalHostelFee() {
-        return totalHostelFee;
+        return this.totalHostelFee;
     }
 
     public StudentFee totalHostelFee(Long totalHostelFee) {
-        this.totalHostelFee = totalHostelFee;
+        this.setTotalHostelFee(totalHostelFee);
         return this;
     }
 
@@ -266,11 +270,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getHostelFeewaveOff() {
-        return hostelFeewaveOff;
+        return this.hostelFeewaveOff;
     }
 
     public StudentFee hostelFeewaveOff(Long hostelFeewaveOff) {
-        this.hostelFeewaveOff = hostelFeewaveOff;
+        this.setHostelFeewaveOff(hostelFeewaveOff);
         return this;
     }
 
@@ -279,11 +283,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getTotalHostelFeePaid() {
-        return totalHostelFeePaid;
+        return this.totalHostelFeePaid;
     }
 
     public StudentFee totalHostelFeePaid(Long totalHostelFeePaid) {
-        this.totalHostelFeePaid = totalHostelFeePaid;
+        this.setTotalHostelFeePaid(totalHostelFeePaid);
         return this;
     }
 
@@ -292,11 +296,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getHostelFeePaid() {
-        return hostelFeePaid;
+        return this.hostelFeePaid;
     }
 
     public StudentFee hostelFeePaid(Long hostelFeePaid) {
-        this.hostelFeePaid = hostelFeePaid;
+        this.setHostelFeePaid(hostelFeePaid);
         return this;
     }
 
@@ -305,11 +309,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getHostelFeepending() {
-        return hostelFeepending;
+        return this.hostelFeepending;
     }
 
     public StudentFee hostelFeepending(Long hostelFeepending) {
-        this.hostelFeepending = hostelFeepending;
+        this.setHostelFeepending(hostelFeepending);
         return this;
     }
 
@@ -318,11 +322,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getHostelExpenses() {
-        return hostelExpenses;
+        return this.hostelExpenses;
     }
 
     public StudentFee hostelExpenses(Long hostelExpenses) {
-        this.hostelExpenses = hostelExpenses;
+        this.setHostelExpenses(hostelExpenses);
         return this;
     }
 
@@ -331,11 +335,11 @@ public class StudentFee implements Serializable {
     }
 
     public Long getYear() {
-        return year;
+        return this.year;
     }
 
     public StudentFee year(Long year) {
-        this.year = year;
+        this.setYear(year);
         return this;
     }
 
@@ -344,11 +348,11 @@ public class StudentFee implements Serializable {
     }
 
     public String getComments() {
-        return comments;
+        return this.comments;
     }
 
     public StudentFee comments(String comments) {
-        this.comments = comments;
+        this.setComments(comments);
         return this;
     }
 
@@ -357,18 +361,19 @@ public class StudentFee implements Serializable {
     }
 
     public Student getStudent() {
-        return student;
-    }
-
-    public StudentFee student(Student student) {
-        this.student = student;
-        return this;
+        return this.student;
     }
 
     public void setStudent(Student student) {
         this.student = student;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    public StudentFee student(Student student) {
+        this.setStudent(student);
+        return this;
+    }
+
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -383,9 +388,11 @@ public class StudentFee implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "StudentFee{" +
@@ -395,8 +402,8 @@ public class StudentFee implements Serializable {
             ", academicFeePaid=" + getAcademicFeePaid() +
             ", totalAcademicFeePaid=" + getTotalAcademicFeePaid() +
             ", academicFeepending=" + getAcademicFeepending() +
-            ", busAlloted='" + isBusAlloted() + "'" +
-            ", hostelAlloted='" + isHostelAlloted() + "'" +
+            ", busAlloted='" + getBusAlloted() + "'" +
+            ", hostelAlloted='" + getHostelAlloted() + "'" +
             ", totalBusFee=" + getTotalBusFee() +
             ", busFeewaveOff=" + getBusFeewaveOff() +
             ", busFeePaid=" + getBusFeePaid() +

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Elements.
+    -->
+    <changeSet id="20211213093842-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="spacing_id"
+                                 baseTableName="elements"
+                                 constraintName="fk_elements__spacing_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="spacing"/>
+
+        <addForeignKeyConstraint baseColumnNames="attributes_id"
+                                 baseTableName="elements"
+                                 constraintName="fk_elements__attributes_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="attributes"/>
+
+        <addForeignKeyConstraint baseColumnNames="button_id"
+                                 baseTableName="elements"
+                                 constraintName="fk_elements__button_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="button"/>
+
+        <addForeignKeyConstraint baseColumnNames="text_id"
+                                 baseTableName="elements"
+                                 constraintName="fk_elements__text_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="text"/>
+
+        <addForeignKeyConstraint baseColumnNames="table_id"
+                                 baseTableName="elements"
+                                 constraintName="fk_elements__table_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_table"/>
+
+        <addForeignKeyConstraint baseColumnNames="form_id"
+                                 baseTableName="elements"
+                                 constraintName="fk_elements__form_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="form_wrap"/>
+
+        <addForeignKeyConstraint baseColumnNames="badge_id"
+                                 baseTableName="elements"
+                                 constraintName="fk_elements__badge_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="badge"/>
+
+        <addForeignKeyConstraint baseColumnNames="icon_id"
+                                 baseTableName="elements"
+                                 constraintName="fk_elements__icon_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="icon"/>
+
+        <addForeignKeyConstraint baseColumnNames="image_id"
+                                 baseTableName="elements"
+                                 constraintName="fk_elements__image_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="image"/>
+
+        <addForeignKeyConstraint baseColumnNames="element_id"
+                                 baseTableName="elements"
+                                 constraintName="fk_elements__element_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="elements"/>
+
+        <addForeignKeyConstraint baseColumnNames="flexbox_id"
+                                 baseTableName="elements"
+                                 constraintName="fk_elements__flexbox_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="flex_box"/>
+    </changeSet>
+</databaseChangeLog>

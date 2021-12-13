@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Label.
+    -->
+    <changeSet id="20211213093847-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="display_att_id"
+                                 baseTableName="label"
+                                 constraintName="fk_label__display_att_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="display_att"/>
+
+        <addForeignKeyConstraint baseColumnNames="spacing_id"
+                                 baseTableName="label"
+                                 constraintName="fk_label__spacing_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="spacing"/>
+
+        <addForeignKeyConstraint baseColumnNames="text_id"
+                                 baseTableName="label"
+                                 constraintName="fk_label__text_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="text"/>
+
+        <addForeignKeyConstraint baseColumnNames="icon_id"
+                                 baseTableName="label"
+                                 constraintName="fk_label__icon_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="icon"/>
+
+        <addForeignKeyConstraint baseColumnNames="labels_id"
+                                 baseTableName="label"
+                                 constraintName="fk_label__labels_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="head"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,33 +1,33 @@
 {
-    "name": "BusStops",
-    "fields": [
-        {
-            "fieldName": "routeName",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "busStops",
-            "fieldType": "String"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "busRoute",
-            "otherEntityRelationshipName": "busStop",
-            "relationshipName": "busRoute",
-            "otherEntityField": "id"
-        }
-    ],
-    "changelogDate": "20200311164100",
-    "entityTableName": "bus_stops",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "embedded": false,
-    "clientRootFolder": "",
-    "applications": "*"
+  "name": "BusStops",
+  "fields": [
+    {
+      "fieldName": "routeName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "busStops",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "busRoute",
+      "otherEntityRelationshipName": "busStop",
+      "relationshipName": "busRoute",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200311164100",
+  "entityTableName": "bus_stops",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
 }

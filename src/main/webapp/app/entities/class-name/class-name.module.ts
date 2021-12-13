@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { JhipsterSampleApplicationSharedModule } from 'app/shared/shared.module';
-import { ClassNameComponent } from './class-name.component';
-import { ClassNameDetailComponent } from './class-name-detail.component';
-import { ClassNameUpdateComponent } from './class-name-update.component';
-import { ClassNameDeleteDialogComponent } from './class-name-delete-dialog.component';
-import { classNameRoute } from './class-name.route';
+import { SharedModule } from 'app/shared/shared.module';
+import { ClassNameComponent } from './list/class-name.component';
+import { ClassNameDetailComponent } from './detail/class-name-detail.component';
+import { ClassNameUpdateComponent } from './update/class-name-update.component';
+import { ClassNameDeleteDialogComponent } from './delete/class-name-delete-dialog.component';
+import { ClassNameRoutingModule } from './route/class-name-routing.module';
 
 @NgModule({
-  imports: [JhipsterSampleApplicationSharedModule, RouterModule.forChild(classNameRoute)],
+  imports: [SharedModule, ClassNameRoutingModule],
   declarations: [ClassNameComponent, ClassNameDetailComponent, ClassNameUpdateComponent, ClassNameDeleteDialogComponent],
-  entryComponents: [ClassNameDeleteDialogComponent]
+  entryComponents: [ClassNameDeleteDialogComponent],
 })
-export class JhipsterSampleApplicationClassNameModule {}
+export class ClassNameModule {}

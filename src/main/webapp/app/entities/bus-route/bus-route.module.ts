@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { JhipsterSampleApplicationSharedModule } from 'app/shared/shared.module';
-import { BusRouteComponent } from './bus-route.component';
-import { BusRouteDetailComponent } from './bus-route-detail.component';
-import { BusRouteUpdateComponent } from './bus-route-update.component';
-import { BusRouteDeleteDialogComponent } from './bus-route-delete-dialog.component';
-import { busRouteRoute } from './bus-route.route';
+import { SharedModule } from 'app/shared/shared.module';
+import { BusRouteComponent } from './list/bus-route.component';
+import { BusRouteDetailComponent } from './detail/bus-route-detail.component';
+import { BusRouteUpdateComponent } from './update/bus-route-update.component';
+import { BusRouteDeleteDialogComponent } from './delete/bus-route-delete-dialog.component';
+import { BusRouteRoutingModule } from './route/bus-route-routing.module';
 
 @NgModule({
-  imports: [JhipsterSampleApplicationSharedModule, RouterModule.forChild(busRouteRoute)],
+  imports: [SharedModule, BusRouteRoutingModule],
   declarations: [BusRouteComponent, BusRouteDetailComponent, BusRouteUpdateComponent, BusRouteDeleteDialogComponent],
-  entryComponents: [BusRouteDeleteDialogComponent]
+  entryComponents: [BusRouteDeleteDialogComponent],
 })
-export class JhipsterSampleApplicationBusRouteModule {}
+export class BusRouteModule {}

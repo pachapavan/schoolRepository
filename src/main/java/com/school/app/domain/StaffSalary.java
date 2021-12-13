@@ -1,26 +1,24 @@
 package com.school.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
-import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A StaffSalary.
  */
 @Entity
 @Table(name = "staff_salary")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class StaffSalary implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "salary_paid")
@@ -30,12 +28,18 @@ public class StaffSalary implements Serializable {
     private String month;
 
     @ManyToOne
-    @JsonIgnoreProperties("salaries")
+    @JsonIgnoreProperties(value = { "salaries", "teachers" }, allowSetters = true)
     private Staff staff;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public StaffSalary id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
@@ -43,11 +47,11 @@ public class StaffSalary implements Serializable {
     }
 
     public Long getSalaryPaid() {
-        return salaryPaid;
+        return this.salaryPaid;
     }
 
     public StaffSalary salaryPaid(Long salaryPaid) {
-        this.salaryPaid = salaryPaid;
+        this.setSalaryPaid(salaryPaid);
         return this;
     }
 
@@ -56,11 +60,11 @@ public class StaffSalary implements Serializable {
     }
 
     public String getMonth() {
-        return month;
+        return this.month;
     }
 
     public StaffSalary month(String month) {
-        this.month = month;
+        this.setMonth(month);
         return this;
     }
 
@@ -69,18 +73,19 @@ public class StaffSalary implements Serializable {
     }
 
     public Staff getStaff() {
-        return staff;
-    }
-
-    public StaffSalary staff(Staff staff) {
-        this.staff = staff;
-        return this;
+        return this.staff;
     }
 
     public void setStaff(Staff staff) {
         this.staff = staff;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    public StaffSalary staff(Staff staff) {
+        this.setStaff(staff);
+        return this;
+    }
+
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -95,9 +100,11 @@ public class StaffSalary implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "StaffSalary{" +

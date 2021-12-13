@@ -26,6 +26,25 @@
     <include file="config/liquibase/changelog/20200311164000_added_entity_BusRouteName.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200311164100_added_entity_BusStops.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200311164200_added_entity_StaffSalary.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093838_added_entity_Page.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093839_added_entity_Spacing.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093840_added_entity_FlexBox.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093841_added_entity_Attributes.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093842_added_entity_Elements.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093843_added_entity_Button.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093844_added_entity_Text.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093845_added_entity_Table.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093846_added_entity_Head.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093847_added_entity_Label.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093848_added_entity_Body.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093849_added_entity_TabelValues.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093850_added_entity_DisplayAtt.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093851_added_entity_BadgeType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093852_added_entity_FormWrap.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093853_added_entity_Badge.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093854_added_entity_Icon.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093855_added_entity_Image.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093856_added_entity_ObjectContainingString.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20200311163300_added_entity_constraints_ClassName.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200311163400_added_entity_constraints_Section.xml" relativeToChangelogFile="false"/>
@@ -37,5 +56,19 @@
     <include file="config/liquibase/changelog/20200311164000_added_entity_constraints_BusRouteName.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200311164100_added_entity_constraints_BusStops.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200311164200_added_entity_constraints_StaffSalary.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093840_added_entity_constraints_FlexBox.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093842_added_entity_constraints_Elements.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093843_added_entity_constraints_Button.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093844_added_entity_constraints_Text.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093845_added_entity_constraints_Table.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093846_added_entity_constraints_Head.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093847_added_entity_constraints_Label.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093848_added_entity_constraints_Body.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093849_added_entity_constraints_TabelValues.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093850_added_entity_constraints_DisplayAtt.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093851_added_entity_constraints_BadgeType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093854_added_entity_constraints_Icon.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093855_added_entity_constraints_Image.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20211213093856_added_entity_constraints_ObjectContainingString.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

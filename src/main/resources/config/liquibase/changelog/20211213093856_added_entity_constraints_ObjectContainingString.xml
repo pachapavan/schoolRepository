@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity ObjectContainingString.
+    -->
+    <changeSet id="20211213093856-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="json_id"
+                                 baseTableName="object_containing_string"
+                                 constraintName="fk_object_containing_string__json_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="page"/>
+
+        <addForeignKeyConstraint baseColumnNames="permissions_id"
+                                 baseTableName="object_containing_string"
+                                 constraintName="fk_object_containing_string__permissions_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tabel_values"/>
+
+        <addForeignKeyConstraint baseColumnNames="permissions1_id"
+                                 baseTableName="object_containing_string"
+                                 constraintName="fk_object_containing_string__permissions1_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="label"/>
+
+        <addForeignKeyConstraint baseColumnNames="json1_id"
+                                 baseTableName="object_containing_string"
+                                 constraintName="fk_object_containing_string__json1_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="spacing"/>
+
+        <addForeignKeyConstraint baseColumnNames="json2_id"
+                                 baseTableName="object_containing_string"
+                                 constraintName="fk_object_containing_string__json2_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="spacing"/>
+    </changeSet>
+</databaseChangeLog>
